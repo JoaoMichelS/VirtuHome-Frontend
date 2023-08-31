@@ -1,7 +1,7 @@
 # Projeto VirtuHome - Aplicativo Móvel de Gerenciamento Residencial e Financeiro
 
 <div align="center">
-  <img src="Logo.png">
+  <img src="Assets/Logo.png">
 </div>
 
 ## Descrição
