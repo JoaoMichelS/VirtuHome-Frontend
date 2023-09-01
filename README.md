@@ -1,8 +1,10 @@
-# Projeto VirtuHome - Aplicativo Móvel de Gerenciamento Residencial e Financeiro
+# VirtuHome Project - Mobile Application for Home and Financial Management
 
 <div align="center">
   <img src="Assets/Logo.png">
 </div>
 
-## Descrição
-O VirtuHome é um aplicativo móvel projetado para simplificar e otimizar o gerenciamento residencial por meio de automações inteligentes e um sistema financeiro integrado. Este repositório contém o código-fonte completo do aplicativo, bem como a documentação necessária para desenvolvedores e usuários.
+## Description
+VirtuHome is a mobile app designed to simplify and streamline home management through smart automations and an integrated finance system. This repository contains the complete source code of the application, as well as necessary documentation for developers and users.
+
+
