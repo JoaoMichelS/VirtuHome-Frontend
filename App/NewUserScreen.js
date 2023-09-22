@@ -1,23 +1,27 @@
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { ActivityIndicator } from "react-native-web";
+import { FIREBASE_AUTH } from './src/services/firebaseConfig';
 
 function NewUserScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [password2, setPassword2] = useState('');
+  const auth = FIREBASE_AUTH;
 
-  const CheckNewUser = () => {
-    // Implemente a lógica de autenticação aqui, por exemplo, fazendo uma solicitação à sua API.
-    // Verifique as credenciais e navegue para a próxima tela em caso de sucesso.
 
-    if (password === password2) {
-      navigation.navigate('Main'); // Navegue para a próxima tela após a autenticação bem-sucedida.
-    } else {
-      // Exiba uma mensagem de erro em caso de autenticação falha.
-      alert('Credenciais inválidas. Tente novamente.');
+  const signUp = async () => {
+    try{
+      const response = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(response);
+      alert('Usuário Criado!');
+    } catch (error) {
+      console.log(error);
+      alert('Sign in failed: ' + error.message);
     }
-  };
+  }
 
   const LogIn = () => {
     navigation.navigate('Login')
@@ -60,7 +64,7 @@ function NewUserScreen({ navigation }) {
         onChangeText={(text) => setPassword2(text)}
         value={password2}
       />
-      <TouchableOpacity style={styles.button} onPress={CheckNewUser}>
+      <TouchableOpacity style={styles.button} onPress={signUp}>
         <Text style={styles.buttonText}>SIGN UP</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.NewUser} onPress={LogIn}>
