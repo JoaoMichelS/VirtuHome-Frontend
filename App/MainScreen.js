@@ -1,26 +1,32 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import Header from './Header';
 
 function MainScreen({ navigation }) {
-  
-};
 
-  const Header = () => {
     return (
-    <View style={styles.header}>
-      <Image
-        source={require('./assets/VirtuHome.png')}
-      />
-    </View>
-  );
+        <View style={styles.container}>
+            <Header />
+            <Text style={styles.favs}>Favorites</Text>
+            <Text style={styles.functions}>Functions</Text>
+        </View>
+    );
 }
 
-const styles = StyleSheet.create({
-  header: {
-    height: 80,
-    paddingTop: 38,
-    backgroundColor:'#252B3B'
-  },
+const styles = StyleSheet.create ({
+    container : {
+        flex: 1,
+        backgroundColor: '#252B3B', 
+    },
+    favs : {
+        color: '#FECE00',
+        textAlign: 'center',
+        fontWeight : 'bold',
+        flex: 0.5,
+    },
+    functions : {
+        color: '#FECE00',
+        textAlign: 'center',
+        fontWeight : 'bold',
+    }
 });
-
-export default MainScreen;
