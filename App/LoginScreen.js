@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {FIREBASE_AUTH, auth} from "./src/services/firebaseConfig";
+import { ActivityIndicator } from "react-native-web";
 
 function LoginScreen({ navigation }) {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const auth = FIREBASE_AUTH;
 
-  const handleLogin = () => {
-    // Implemente a lógica de autenticação aqui, por exemplo, fazendo uma solicitação à sua API.
-    // Verifique as credenciais e navegue para a próxima tela em caso de sucesso.
-
-    if (username === '123' && password === '123') {
-      navigation.navigate('Main'); // Navegue para a próxima tela após a autenticação bem-sucedida.
-    } else {
-      // Exiba uma mensagem de erro em caso de autenticação falha.
-      alert('Credenciais inválidas. Tente novamente.');
+  const signIn = async () => {
+    try{
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log(response);
+      alert('logou!');
+      navigation.navigate('Main');
+    } catch (error) {
+      console.log(error);
+      alert('Sign in failed: ' + error.message);
     }
-  };
+  }
 
   const NewUser = () => {
     navigation.navigate('NewUser');
@@ -30,10 +34,10 @@ function LoginScreen({ navigation }) {
       
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="Email"
         placeholderTextColor={"#FECE00"}
-        onChangeText={(text) => setUsername(text)}
-        value={username}
+        onChangeText={(text) => setEmail(text)}
+        value={email}
       />
       <TextInput
         style={styles.input}
@@ -43,7 +47,8 @@ function LoginScreen({ navigation }) {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+
+      <TouchableOpacity style={styles.button} onPress={signIn}>
         <Text style={styles.buttonText}>LOG IN</Text>
       </TouchableOpacity>
       <Text style={styles.text}>DON´T HAVE ACCOUNT?</Text>
