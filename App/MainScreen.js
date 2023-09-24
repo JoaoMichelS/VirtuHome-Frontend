@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import Header from './Header';
 
 function MainScreen({ navigation }) {
-
+    
     return (
         <View style={styles.container}>
             <Header />
@@ -22,11 +22,17 @@ const styles = StyleSheet.create ({
         color: '#FECE00',
         textAlign: 'center',
         fontWeight : 'bold',
+        fontSize: 25,
+        marginTop: 25,
         flex: 0.5,
+        borderBottomColor: '#fff',
+        borderBottomWidth: 2,
     },
     functions : {
         color: '#FECE00',
         textAlign: 'center',
         fontWeight : 'bold',
+        fontSize: 25,
+        marginTop: 25,
     }
 });
