@@ -9,7 +9,7 @@ function NewUserScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [password2, setPassword2] = useState('');
-  const auth = FIREBASE_AUTH;
+  const auth = FIREBASE_AUTH; 
 
 
   const signUp = async () => {
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 8,
     marginBottom: 12,
+    color: "#FECE00",
   },
   Image: {
     width:200,
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
     padding: 10, // Espaçamento interno
   },
   textB: {
+    paddingTop: 10,
     color: "#FECE00",
     fontWeight: "bold",
   },

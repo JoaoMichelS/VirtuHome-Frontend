@@ -21,6 +21,10 @@ function LoginScreen({ navigation }) {
     }
   }
 
+  const ForgotPassword = () => {
+    navigation.navigate('ForgotPassword')
+  };
+
   const NewUser = () => {
     navigation.navigate('NewUser');
   }
@@ -37,7 +41,7 @@ function LoginScreen({ navigation }) {
         placeholder="Email"
         placeholderTextColor={"#FECE00"}
         onChangeText={(text) => setEmail(text)}
-        value={email}
+        value={email} 
       />
       <TextInput
         style={styles.input}
@@ -48,6 +52,9 @@ function LoginScreen({ navigation }) {
         value={password}
       />
 
+      <TouchableOpacity style={styles.ForgotPassword} onPress={ForgotPassword}>
+        <Text style={styles.ForgotPassword}>Recuperar senha</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={signIn}>
         <Text style={styles.buttonText}>LOG IN</Text>
       </TouchableOpacity>
@@ -72,18 +79,24 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   input: {
-    width: '100%',
+    width: '100%', 
     height: 40,
     borderColor: '#FECE00',
     borderWidth: 1,
     borderRadius: 5,
     paddingLeft: 8,
     marginBottom: 12,
+    color: "#FECE00",
   },
   Image: {
     width:200,
     height:200,
     marginBottom:30,
+  },
+  ForgotPassword: {
+    color: "#FECE00",
+    textDecorationLine: 'underline',
+    paddingBottom : 10,
   },
   button: {
     backgroundColor: "#FECE00",
@@ -93,11 +106,13 @@ const styles = StyleSheet.create({
     padding: 10, // Espaçamento interno
   },
   text: {
-    color: "#FECE00"
+    color: "#FECE00",
+    paddingTop: 15,
   },
   textB: {
     color: "#FECE00",
     fontWeight: "bold",
+    paddingTop: 8,
   },
 });
 

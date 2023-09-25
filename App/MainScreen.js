@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Header from './Header';
 
-function MainScreen({ navigation }) {
-    
+function MainScreen ({ navigation }) {
     return (
         <View style={styles.container}>
             <Header />
