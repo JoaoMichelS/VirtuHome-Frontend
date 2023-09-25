@@ -36,3 +36,5 @@ const styles = StyleSheet.create ({
         marginTop: 25,
     }
 });
+
+export default MainScreen;
