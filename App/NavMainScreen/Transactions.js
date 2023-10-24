@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Header from './Header';
 
-export default function Favorites() {
+export default function Transactions() {
   return (
     <View style={styles.container}>
       <Header />
-      <Text style={styles.title}>Favorites</Text>
+      <Text style={styles.title}>Transactions</Text>
     </View>
   );
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Header from './Header.js';
+import Header from './Header';
 
 
-export default function Notifications() {
+export default function Planning() { 
   return (
     <View style={styles.container}>
       <Header />
-      <Text style={styles.title}>Notifications</Text>
+      <Text style={styles.title}>Planning</Text>
     </View>
   );
 }

@@ -3,16 +3,17 @@ import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Home from './NavMainScreen/Home';
-import Favorites from './NavMainScreen/Favorites';
-import Notifications from './NavMainScreen/Notifications';
-import Profile from './NavMainScreen/Profile';
-import Settings from './NavMainScreen/Settings';
+import Transactions from './NavMainScreen/Transactions';
+import Goals from './NavMainScreen/Goals';
+import Planning from './NavMainScreen/Planning';
+//import Settings from './NavMainScreen/Settings';
 
 import { Ionicons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator ();
+
+//settings, notifications
 
 function MainScreen ({ navigation }) {
     return (
@@ -38,44 +39,34 @@ function MainScreen ({ navigation }) {
                         return <Ionicons name="home-outline" size={size} color={'#FECE00'}/>
                     }
                 }}/>
-            <Tab.Screen name="Favorites" component={Favorites}
+            <Tab.Screen name="Transactions" component={Transactions}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size, focused }) => {
                         if(focused){
-                            return <MaterialCommunityIcons name="star" size={size} color={'#FECE00'}/>
+                            return <FontAwesome name="credit-card-alt" size={size} color={'#FECE00'}/>
                         }
-                        return <MaterialCommunityIcons name="star-outline" size={size} color={'#FECE00'}/>
+                        return <FontAwesome name="credit-card" size={size} color={'#FECE00'}/>
                     }
                 }}/>
-            <Tab.Screen name="Notifications" component={Notifications}
+            <Tab.Screen name="Goals" component={Goals}
             options={{
                 headerShown: false,
                 tabBarIcon: ({ color, size, focused }) => {
                     if(focused){
-                        return <MaterialCommunityIcons name="bell" size={size} color={'#FECE00'}/>
+                        return <Ionicons name="checkmark-circle" size={size} color={'#FECE00'}/>
                     }
-                    return <MaterialCommunityIcons name="bell-outline" size={size} color={'#FECE00'}/>
+                    return <Ionicons name="checkmark-circle-outline" size={size} color={'#FECE00'}/>
                 }
             }}/>
-            <Tab.Screen name="Profile" component={Profile}
+            <Tab.Screen name="Planning" component={Planning}
             options={{
                 headerShown: false,
                 tabBarIcon: ({ color, size, focused }) => {
                     if(focused){
-                        return <FontAwesome name="user" size={size} color={'#FECE00'}/>
+                        return <Ionicons name="bar-chart" size={size} color={'#FECE00'}/>
                     }
-                    return <FontAwesome name="user-o" size={size} color={'#FECE00'}/>
-                }
-            }}/>
-            <Tab.Screen name="Settings" component={Settings}
-            options={{
-                headerShown: false,
-                tabBarIcon: ({ color, size, focused }) => {
-                    if(focused){
-                        return <Ionicons name="settings" size={size} color={'#FECE00'}/>
-                    }
-                    return <Ionicons name="settings-outline" size={size} color={'#FECE00'}/>
+                    return <Ionicons name="bar-chart-outline" size={size} color={'#FECE00'}/>
                 }
             }}/>
         </Tab.Navigator>

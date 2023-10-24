@@ -9,9 +9,9 @@ import NewuserScreen from './NewUserScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 
 import Home from './NavMainScreen/Home';
-import Favorites from './NavMainScreen/Favorites';
-import Notifications from './NavMainScreen/Notifications';
-import Profile from './NavMainScreen/Profile';
+import Transactions from './NavMainScreen/Transactions';
+import Goals from './NavMainScreen/Goals';
+import Planning from './NavMainScreen/Planning';
 import Settings from './NavMainScreen/Settings';
 import Header from './NavMainScreen/Header';
 

@@ -25,8 +25,6 @@ export default function Settings() {
   );
 }
 
-//home,transacoes,metas,planejamento
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

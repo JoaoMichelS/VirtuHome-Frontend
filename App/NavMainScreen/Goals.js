@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Header from './Header';
+import Header from './Header.js';
 
 
-export default function Profile() {
+export default function Goals() {
   return (
     <View style={styles.container}>
       <Header />
-      <Text style={styles.title}>Profile</Text>
+      <Text style={styles.title}>Goals</Text>
     </View>
   );
 }
