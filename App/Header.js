@@ -1,15 +1,23 @@
-import React from 'react';
+import React from 'react'; 
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Header () {
+
+    const navigation = useNavigation();
+
+    const Settings = () => {
+        navigation.navigate('Settings')
+      };
+
     return (
         <View style={styles.header}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={Settings}>
                 <Ionicons name="settings-outline" size={24} color="#FECE00"/>
             </TouchableOpacity>
-            <Image source={require('../assets/VirtuHome.png')} style={styles.image}/>
+            <Image source={require('./assets/VirtuHome.png')} style={styles.image}/>
             <TouchableOpacity>
                 <MaterialCommunityIcons name="bell-outline" size={24} color='#FECE00'/>
             </TouchableOpacity>

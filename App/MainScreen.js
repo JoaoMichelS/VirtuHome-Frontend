@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Home from './NavMainScreen/Home';
-import Transactions from './NavMainScreen/Transactions';
-import Goals from './NavMainScreen/Goals';
-import Planning from './NavMainScreen/Planning';
-//import Settings from './NavMainScreen/Settings';
+import Home from './Home';
+import Transactions from './Transactions';
+import Goals from './Goals';
+import Planning from './Planning';
+//import Settings from './NavMainScreen/Settings';  
 
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -20,7 +20,7 @@ function MainScreen ({ navigation }) {
         <Tab.Navigator
             screenOptions={{
                 //tabBarShowLabel: false,
-                tabBarLabelStyle: {
+                tabBarLabelStyle: { 
                     color: '#FFFFFF',
                 },
                 tabBarStyle: {
