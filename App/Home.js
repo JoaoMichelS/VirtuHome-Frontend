@@ -21,6 +21,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
-    paddingTop: 30,
+    paddingTop: 50,
   }
 });

@@ -2,35 +2,28 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import Header from './Header';
 
-export default function ChangePassword({ navigation }) { 
+export default function NewTransaction({ navigation }) { 
 
     return(
         <View style={styles.container}>
             <Header />
-            <Text style={styles.title}>Alterar Senha</Text>
+            <Text style={styles.title}>Nova Transacao</Text>
             <TextInput style={styles.input}
-              placeholder="Senha Atual"
+              placeholder="Categoria"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
               //onChangeText={(text) => setPassword(text)}
               //value={password}
             />
             <TextInput style={styles.input2}
-              placeholder="Nova Senha"
-              placeholderTextColor={"#FECE00"}
-              secureTextEntry
-              //onChangeText={(text) => setPassword(text)}
-              //value={password}
-            />
-            <TextInput style={styles.input3}
-              placeholder="Confirme Nova Senha"
+              placeholder="Valor"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
               //onChangeText={(text) => setPassword(text)}
               //value={password}
             />
             <TouchableOpacity style={styles.Button} >
-              <Text style={styles.ChangePassword}>SALVAR</Text>
+              <Text style={styles.Add}>ADICIONAR</Text>
             </TouchableOpacity>
         </View>
     );
@@ -48,7 +41,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       textAlign: 'center',
       paddingTop: 50,
-    },  
+    }, 
 
     input: {
       width: '80%', 
@@ -76,19 +69,6 @@ const styles = StyleSheet.create({
       marginTop: 30,
     },
 
-    input3: {
-      width: '80%', 
-      height: 50,
-      borderColor: '#FECE00',
-      borderWidth: 1,
-      borderRadius: 5,
-      paddingLeft: 8,
-      marginBottom: 12,
-      color: "#FECE00",
-      alignSelf: 'center',
-      marginTop: 30,
-    },
-
     Button: {
       backgroundColor: "#FECE00",
       borderWidth: 2, 
@@ -101,7 +81,7 @@ const styles = StyleSheet.create({
       height: 50,
     },
 
-    ChangePassword: {
+    Add: {
      alignSelf: 'center',
      fontWeight: "bold",
      fontSize: 18,

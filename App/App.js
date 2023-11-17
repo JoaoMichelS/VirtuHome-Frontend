@@ -8,6 +8,8 @@ import NewuserScreen from './NewUserScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import Settings from './Settings';
 import ChangePassword from './ChangePassword';
+import NewTransaction from './NewTransaction';
+import NewGoal from './NewGoal';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +23,8 @@ function App(){
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
+        <Stack.Screen name="NewTransaction" component={NewTransaction} />
+        <Stack.Screen name="NewGoal" component={NewGoal} />
       </Stack.Navigator>
     </NavigationContainer>
   )

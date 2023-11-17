@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import Header from './Header';
 
-export default function ChangePassword({ navigation }) { 
+export default function NewGoal({ navigation }) { 
 
     return(
         <View style={styles.container}>
             <Header />
-            <Text style={styles.title}>Alterar Senha</Text>
+            <Text style={styles.title}>Nova Meta</Text>
             <TextInput style={styles.input}
               placeholder="Senha Atual"
               placeholderTextColor={"#FECE00"}
@@ -30,7 +30,7 @@ export default function ChangePassword({ navigation }) {
               //value={password}
             />
             <TouchableOpacity style={styles.Button} >
-              <Text style={styles.ChangePassword}>SALVAR</Text>
+              <Text style={styles.Add}>ADICIONAR</Text>
             </TouchableOpacity>
         </View>
     );
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       textAlign: 'center',
       paddingTop: 50,
-    },  
+    }, 
 
     input: {
       width: '80%', 
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
       height: 50,
     },
 
-    ChangePassword: {
+    Add: {
      alignSelf: 'center',
      fontWeight: "bold",
      fontSize: 18,

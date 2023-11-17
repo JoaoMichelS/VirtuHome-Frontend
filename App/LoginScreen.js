@@ -33,7 +33,7 @@ function LoginScreen({ navigation }) {
     <View style={styles.container}>
       <Image
         source={require('./assets/Logo.png')}
-        style={styles.Image}
+        style={styles.Image} 
       />
       
       <TextInput
@@ -51,7 +51,6 @@ function LoginScreen({ navigation }) {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
-
       <TouchableOpacity style={styles.ForgotPassword} onPress={ForgotPassword}>
         <Text style={styles.ForgotPassword}>Recuperar senha</Text>
       </TouchableOpacity>
