@@ -9,21 +9,14 @@ export default function NewGoal({ navigation }) {
             <Header />
             <Text style={styles.title}>Nova Meta</Text>
             <TextInput style={styles.input}
-              placeholder="Senha Atual"
+              placeholder="Meta"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
               //onChangeText={(text) => setPassword(text)}
               //value={password}
             />
             <TextInput style={styles.input2}
-              placeholder="Nova Senha"
-              placeholderTextColor={"#FECE00"}
-              secureTextEntry
-              //onChangeText={(text) => setPassword(text)}
-              //value={password}
-            />
-            <TextInput style={styles.input3}
-              placeholder="Confirme Nova Senha"
+              placeholder="Valor"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
               //onChangeText={(text) => setPassword(text)}
