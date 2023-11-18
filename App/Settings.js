@@ -26,7 +26,6 @@ export default function Settings({ navigation }) {
             onValueChange={toggleSwitch1}
             value={toggle1Enabled} />
       </View>
-      {/* <Text style={styles.op2}>Security Alerts</Text> */}
       <View style={styles.ContainerDarkMode}>
         <Text style={styles.DarkMode}>Dark mode</Text>
         <Switch style={styles.Switch2}
@@ -35,7 +34,6 @@ export default function Settings({ navigation }) {
             onValueChange={toggleSwitch2}
             value={toggle2Enabled} />
       </View>
-      {/* <Text style={styles.op4}>Acessibility mode</Text>     */}
       <TouchableOpacity onPress={ChangePassword}>
         <Text style={styles.ChangePassword}>Change Password</Text>
       </TouchableOpacity>
@@ -64,26 +62,12 @@ const styles = StyleSheet.create({
   marginTop: 50,
 },
 
-// op2: {
-//   color: '#FECE00',
-//   fontSize: 20,
-//   marginLeft: 50,
-//   marginTop: 30,
-// },
-
 DarkMode: {
   color: '#FECE00',
   fontSize: 20,
   marginLeft: 50,
   marginTop: 30,
 },
-
-// op4: {
-//   color: '#FECE00',
-//   fontSize: 20,
-//   marginLeft: 50,
-//   marginTop: 30,
-// },
 
 ContainerNotifications: {
  flexDirection: 'row',

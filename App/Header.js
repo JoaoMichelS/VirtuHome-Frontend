@@ -12,13 +12,17 @@ export default function Header () {
         navigation.navigate('Settings')
       };
 
+    const Notifications = () => {
+        navigation.navigate('Notifications')
+    };
+
     return (
         <View style={styles.header}>
             <TouchableOpacity onPress={Settings}>
                 <Ionicons name="settings-outline" size={24} color="#FECE00"/>
             </TouchableOpacity>
             <Image source={require('./assets/VirtuHome.png')} style={styles.image}/>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={Notifications}>
                 <MaterialCommunityIcons name="bell-outline" size={24} color='#FECE00'/>
             </TouchableOpacity>
         </View>

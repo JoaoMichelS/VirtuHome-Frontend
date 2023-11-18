@@ -6,37 +6,35 @@ import Header from './Header';
 export default function Home() {
 
   const DATA = [
-    {x: 'Mercado', y: 600},
-    {x: 'Luz', y: 200},
-    {x: 'Agua', y: 100},
-];
-
+    {x: 'Moradia', y: 100},
+    {x: 'Alimentação', y: 100},
+    {x: 'Transporte', y: 100},
+    {x: 'Saude', y: 100},
+    {x: 'Educação', y: 100},
+    {x: 'Lazer', y: 100},
+  ];
 
   return (
     <View style={styles.container}>
       <Header />
-      <Text style={styles.title}>Home</Text>
       <Text style={styles.ContainerSaldo}>
         <Text style={styles.Saldo}>Gastos Novembro: R$900,00</Text>
       </Text>
       <VictoryPie data={DATA}
-        colorScale={['#00CED1', 'tomato', 'yellow', '#00FF7F', '#FF69B4', '#8A2BE2', ]}
-        origin={{ y: 180 }}
-        labelPlacement={
-          ({ index }) => index
-          ? "parallel"
-          : "vertical"
-        }
+        colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC']}
+        origin={{ y: 200 }}
         labels={
           ({ datum }) => `${datum.x}: ${datum.y}`
         }
-        labelRadius={45}
+        labelRadius={50}
+        labelPlacement={({ index }) => index
+          ? "parallel"
+          : "parallel"
+        }
       />
     </View>
   );
 }
-
-//DATA.map((value) => value.color)
 
 const styles = StyleSheet.create({
   container: {
@@ -53,7 +51,7 @@ const styles = StyleSheet.create({
   },
 
   ContainerSaldo: {
-    marginTop: 40,
+    marginTop: 80,
     backgroundColor: '#FFFFFF',
     paddingTop: 15,
     paddingBottom: 15,

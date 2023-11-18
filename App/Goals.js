@@ -11,7 +11,7 @@ export default function Goals({ navigation }) {
   return (
     <View style={styles.container}>
       <Header />
-      <Text style={styles.title}>Goals</Text>
+      <Text style={styles.title}>Metas</Text>
       <View style={styles.ContainerContent}>
         <ScrollView>
           <Text style={styles.ContainerGoal}>
@@ -23,6 +23,9 @@ export default function Goals({ navigation }) {
           <Text style={styles.ContainerGoal}>
             <Text style={styles.Goal}>Meta</Text>
           </Text>  
+          <Text style={styles.ContainerGoal}>
+            <Text style={styles.Goal}>Meta</Text>
+          </Text> 
           <Text style={styles.ContainerGoal}>
             <Text style={styles.Goal}>Meta</Text>
           </Text>  
@@ -42,6 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#252B3B',
   },
+  
   title: {
     color: '#FECE00',
     fontSize: 30,

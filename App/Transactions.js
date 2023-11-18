@@ -12,7 +12,7 @@ export default function Transactions({ navigation }) {
   return (
     <View style={styles.container}>
       <Header />
-      <Text style={styles.title}>Transactions</Text>
+      <Text style={styles.title}>Gastos</Text>
       <View style={styles.ContainerContent}>
         <ScrollView>
           <Text style={styles.ContainerTransaction}>
@@ -37,7 +37,7 @@ export default function Transactions({ navigation }) {
       </View>
       <View style={styles.ButtonContainer}>
         <TouchableOpacity style={styles.Button} onPress={NewTransaction}>
-          <Text style={styles.Add}>Adicionar Transacao</Text>
+          <Text style={styles.Add}>Adicionar Transação</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   }, 
 
   ContainerContent: {
-    flex: 1.2,
+    flex: 1.15,
   },
 
   ContainerTransaction: {
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     borderColor: '#FFFFFF', 
     width: 300,
     alignSelf: 'center',
-    borderRadius: 12,
     textAlign: 'center',
+    borderRadius: 5,
   },
 
   Transaction: {

@@ -19,7 +19,7 @@ function MainScreen ({ navigation }) {
     return (
         <Tab.Navigator
             screenOptions={{
-                //tabBarShowLabel: false,
+                tabBarShowLabel: false,
                 tabBarLabelStyle: { 
                     color: '#FFFFFF',
                 },
@@ -27,6 +27,7 @@ function MainScreen ({ navigation }) {
                     position: 'absolute',
                     backgroundColor: '#252B3B',
                     borderTopWidth: 2,
+                    height: 85,
                 }
             }}>
             <Tab.Screen name="Home" component={Home} 
