@@ -17,12 +17,10 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Header />
-      <Text style={styles.ContainerSaldo}>
-        <Text style={styles.Saldo}>Gastos Novembro: R$900,00</Text>
-      </Text>
+      <Text style={styles.Saldo}>Gastos Novembro: R$900,00</Text>
       <VictoryPie data={DATA}
         colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC']}
-        origin={{ y: 200 }}
+        origin={{ y: 220 }}
         labels={
           ({ datum }) => `${datum.x}: ${datum.y}`
         }
@@ -50,22 +48,12 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
 
-  ContainerSaldo: {
-    marginTop: 80,
-    backgroundColor: '#FFFFFF',
-    paddingTop: 15,
-    paddingBottom: 15,
-    borderColor: '#FFFFFF', 
-    width: 350,
-    alignSelf: 'center',
-    borderRadius: 12,
-    textAlign: 'center',
-    marginBottom: 30,
-  },
-
   Saldo: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 27,
+    color: "#fff",
+    marginTop: 80,
+    alignSelf: 'center',
   }
 
 });
