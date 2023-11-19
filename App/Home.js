@@ -9,7 +9,7 @@ export default function Home() {
     {x: 'Moradia', y: 100},
     {x: 'Alimentação', y: 100},
     {x: 'Transporte', y: 100},
-    {x: 'Saude', y: 100},
+    {x: 'Saúde', y: 100},
     {x: 'Educação', y: 100},
     {x: 'Lazer', y: 100},
   ];

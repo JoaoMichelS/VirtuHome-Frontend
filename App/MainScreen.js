@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from './Home';
 import Transactions from './Transactions';
 import Goals from './Goals';
-import Planning from './Planning';
+import Historic from './Historic';
 //import Settings from './NavMainScreen/Settings';  
 
 import { Ionicons } from '@expo/vector-icons';
@@ -19,7 +19,7 @@ function MainScreen ({ navigation }) {
     return (
         <Tab.Navigator
             screenOptions={{
-                tabBarShowLabel: false,
+                //tabBarShowLabel: false,
                 tabBarLabelStyle: { 
                     color: '#FFFFFF',
                 },
@@ -60,7 +60,7 @@ function MainScreen ({ navigation }) {
                     return <Ionicons name="checkmark-circle-outline" size={size} color={'#FECE00'}/>
                 }
             }}/>
-            <Tab.Screen name="Planning" component={Planning}
+            <Tab.Screen name="Historic" component={Historic}
             options={{
                 headerShown: false,
                 tabBarIcon: ({ color, size, focused }) => {

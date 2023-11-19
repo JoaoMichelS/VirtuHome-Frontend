@@ -13,7 +13,7 @@ export default function Header () {
       };
 
     const Notifications = () => {
-        navigation.navigate('Notifications')
+        navigation.navigate('Notifications') 
     };
 
     return (
