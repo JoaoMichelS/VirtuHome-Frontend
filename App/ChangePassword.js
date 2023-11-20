@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import Header from './Header';
+import { updatePassword } from 'firebase/auth';
 
 export default function ChangePassword({ navigation }) { 
+
+  //const [password, setPassword] = useState('');
+  //const [newPassword, setNewPassword] = useState('');
+
+  // const updatePassword = async () => {
+  //   try{
+    
+  // }
+  // }
 
     return(
         <View style={styles.container}>
@@ -19,8 +29,8 @@ export default function ChangePassword({ navigation }) {
               placeholder="Nova Senha"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
-              //onChangeText={(text) => setPassword(text)}
-              //value={password}
+              //onChangeText={(text) => setNewPassword(text)}
+              //value={newPassword}
             />
             <TextInput style={styles.input3}
               placeholder="Confirme Nova Senha"
@@ -29,7 +39,7 @@ export default function ChangePassword({ navigation }) {
               //onChangeText={(text) => setPassword(text)}
               //value={password}
             />
-            <TouchableOpacity style={styles.Button} >
+            <TouchableOpacity style={styles.Button} onPress={updatePassword}>
               <Text style={styles.ChangePassword}>SALVAR</Text>
             </TouchableOpacity>
         </View>

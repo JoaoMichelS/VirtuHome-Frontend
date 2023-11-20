@@ -4,11 +4,6 @@ import Header from './Header';
 import { VictoryChart, VictoryGroup, VictoryBar, VictoryLabel, VictoryTheme } from 'victory-native';
 
 export default function Historic() { 
-  
-  Grafico = {
-    legend: {color: "#fff"},
-    chart: {backgroundColor: "#fff"}
-  };
 
   return (
     <View style={styles.container}>

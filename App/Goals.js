@@ -15,20 +15,8 @@ export default function Goals({ navigation }) {
       <View style={styles.ContainerContent}>
         <ScrollView>
           <Text style={styles.ContainerGoal}>
-            <Text style={styles.Goal}>Meta</Text>
+            <Text style={styles.Goal}></Text>
           </Text>
-          <Text style={styles.ContainerGoal}>
-            <Text style={styles.Goal}>Meta</Text>
-          </Text>
-          <Text style={styles.ContainerGoal}>
-            <Text style={styles.Goal}>Meta</Text>
-          </Text>  
-          <Text style={styles.ContainerGoal}>
-            <Text style={styles.Goal}>Meta</Text>
-          </Text> 
-          <Text style={styles.ContainerGoal}>
-            <Text style={styles.Goal}>Meta</Text>
-          </Text>  
         </ScrollView>
       </View>
       <View style={styles.ButtonContainer}>

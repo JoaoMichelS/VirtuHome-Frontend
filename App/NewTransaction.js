@@ -1,26 +1,54 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { SelectList } from 'react-native-dropdown-select-list';
 import Header from './Header';
 
 export default function NewTransaction({ navigation }) { 
+
+  // const [category, setCategory] =  useState('');
+  //const [valor, setValor] = useState('');
+
+  // const addTransaction = async () => {
+  //   try{
+  //     const NewTransaction = {
+  //       category: category,
+  //       valor: valor,
+  //     }
+  //   }
+  // }
+
+  const [selected, setSelected] = React.useState("");
+  
+  const data = [
+      {key:'1', value:'Moradia'},
+      {key:'2', value:'Alimentação'},
+      {key:'3', value:'Transporte'},
+      {key:'4', value:'Saúde'},
+      {key:'5', value:'Educação'},
+      {key:'6', value:'Lazer'},
+  ]
 
     return(
         <View style={styles.container}>
             <Header />
             <Text style={styles.title}>Nova Transacao</Text>
-            <TextInput style={styles.input}
-              placeholder="Categoria"
-              placeholderTextColor={"#FECE00"}
-              secureTextEntry
-              //onChangeText={(text) => setPassword(text)}
-              //value={password}
+            <SelectList
+              setSelected={(val) => setSelected(val)} 
+              data={data} 
+              save="value"
+              search={false}
+              placeholder='Categoria'
+              inputStyles={{color:"#FECE00", marginLeft:-10,}}
+              dropdownTextStyles={{color:"#FECE00"}}
+              dropdownStyles={{borderColor:"#FECE00", marginLeft:40, marginRight:40, borderRadius:5}}
+              boxStyles={{borderColor:"#FECE00", marginLeft:40, marginRight:40, marginTop:80, borderRadius:5}}
             />
             <TextInput style={styles.input2}
               placeholder="Valor"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
-              //onChangeText={(text) => setPassword(text)}
-              //value={password}
+              // onChangeText={(text) => setValor(text)}
+              // value={valor}
             />
             <TouchableOpacity style={styles.Button} >
               <Text style={styles.Add}>ADICIONAR</Text>
@@ -43,19 +71,6 @@ const styles = StyleSheet.create({
       paddingTop: 50,
     }, 
 
-    input: {
-      width: '80%', 
-      height: 50,
-      borderColor: '#FECE00',
-      borderWidth: 1,
-      borderRadius: 5,
-      paddingLeft: 8,
-      marginBottom: 12,
-      color: "#FECE00",
-      alignSelf: 'center',
-      marginTop: 90,
-    },
-
     input2: {
       width: '80%', 
       height: 50,
@@ -66,7 +81,7 @@ const styles = StyleSheet.create({
       marginBottom: 12,
       color: "#FECE00",
       alignSelf: 'center',
-      marginTop: 30,
+      marginTop: 50,
     },
 
     Button: {
@@ -77,7 +92,7 @@ const styles = StyleSheet.create({
       padding: 10, 
       alignSelf: 'center',
       width: 150,
-      marginTop: 80,
+      marginTop: 150,
       height: 50,
     },
 

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Header from './Header';
 import NewTransaction from './NewTransaction';
 
 export default function Transactions({ navigation }) {
+
+  const [transactions, setTransactions] = useState([]);
 
   const NewTransaction = () => {
     navigation.navigate('NewTransaction')
@@ -16,22 +18,7 @@ export default function Transactions({ navigation }) {
       <View style={styles.ContainerContent}>
         <ScrollView>
           <Text style={styles.ContainerTransaction}>
-            <Text style={styles.Transaction}>R$300,00 em Mercado</Text>
-          </Text>
-          <Text style={styles.ContainerTransaction}>
-            <Text style={styles.Transaction}>R$300,00 em Mercado</Text>
-          </Text>
-          <Text style={styles.ContainerTransaction}>
-            <Text style={styles.Transaction}>R$300,00 em Mercado</Text>
-          </Text>
-          <Text style={styles.ContainerTransaction}>
-            <Text style={styles.Transaction}>R$300,00 em Mercado</Text>
-          </Text>
-          <Text style={styles.ContainerTransaction}>
-            <Text style={styles.Transaction}>R$300,00 em Mercado</Text>
-          </Text>
-          <Text style={styles.ContainerTransaction}>
-            <Text style={styles.Transaction}>R$300,00 em Mercado</Text>
+            <Text style={styles.Transaction}></Text>
           </Text>
         </ScrollView>
       </View>

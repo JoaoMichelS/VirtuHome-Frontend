@@ -7,7 +7,7 @@ import { ActivityIndicator } from "react-native-web";
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const auth = FIREBASE_AUTH;
+  const auth = FIREBASE_AUTH; 
 
   const signIn = async () => {
     try{

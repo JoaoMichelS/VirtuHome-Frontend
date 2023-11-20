@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
+import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import Home from './Home';
 import Transactions from './Transactions';
 import Goals from './Goals';
 import Historic from './Historic';
-//import Settings from './NavMainScreen/Settings';  
-
-import { Ionicons } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator ();
-
-//settings, notifications
-
 function MainScreen ({ navigation }) {
     return (
         <Tab.Navigator

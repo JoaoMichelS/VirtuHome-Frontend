@@ -4,6 +4,17 @@ import Header from './Header';
 
 export default function NewGoal({ navigation }) { 
 
+  //const [goal, setGoal] =  useState('');
+
+  // const addGoal = async () => {
+  //   try{
+  //     const NewTransaction = {
+  //       goal: goal,
+  //       value: value,
+  //      }
+  //   }
+  // }
+
     return(
         <View style={styles.container}>
             <Header />
@@ -12,8 +23,8 @@ export default function NewGoal({ navigation }) {
               placeholder="Meta"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
-              //onChangeText={(text) => setPassword(text)}
-              //value={password}
+              //onChangeText={(text) => setGoal(text)}
+              //value={goal}
             />
             <TextInput style={styles.input2}
               placeholder="Valor"
