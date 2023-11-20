@@ -13,6 +13,10 @@ export default function Settings({ navigation }) {
   const ChangePassword = () => {
     navigation.navigate('ChangePassword')
   };
+
+  const LoginScreen = () => {
+    navigation.navigate('Login')
+  };
  
   return (
     <View style={styles.container}>
@@ -36,6 +40,9 @@ export default function Settings({ navigation }) {
       </View>
       <TouchableOpacity onPress={ChangePassword}>
         <Text style={styles.ChangePassword}>Change Password</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={LoginScreen}>
+        <Text style={styles.Logout}>Log Out</Text>
       </TouchableOpacity>
     </View>
   );
@@ -96,4 +103,10 @@ ChangePassword: {
   marginTop: 30, 
 },
 
+Logout: {
+  color: '#FECE00',
+  fontSize: 20,
+  marginLeft: 50,
+  marginTop: 30, 
+},
 });
