@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import Header from './Header';
 
 export default function NewTransaction({ navigation }) { 
 
-  // const [category, setCategory] =  useState('');
-  //const [valor, setValor] = useState('');
+  const [category, setCategory] =  useState('');
+  const [valor, setValor] = useState('');
 
-  // const addTransaction = async () => {
+  const addTransaction = async () => {
   //   try{
-  //     const NewTransaction = {
+  //     const newTransaction = {
   //       category: category,
-  //       valor: valor,
+  //       valorGasto: valor,
   //     }
   //   }
-  // }
+  }
 
   const [selected, setSelected] = React.useState("");
   
@@ -42,15 +42,17 @@ export default function NewTransaction({ navigation }) {
               dropdownTextStyles={{color:"#FECE00"}}
               dropdownStyles={{borderColor:"#FECE00", marginLeft:40, marginRight:40, borderRadius:5}}
               boxStyles={{borderColor:"#FECE00", marginLeft:40, marginRight:40, marginTop:80, borderRadius:5}}
+              onSelect={(val) => setCategory(val)}
+              value={category}
             />
             <TextInput style={styles.input2}
               placeholder="Valor"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
-              // onChangeText={(text) => setValor(text)}
-              // value={valor}
+              onChangeText={(text) => setValor(text)}
+              value={valor}
             />
-            <TouchableOpacity style={styles.Button} >
+            <TouchableOpacity style={styles.Button} onPress={addTransaction}>
               <Text style={styles.Add}>ADICIONAR</Text>
             </TouchableOpacity>
         </View>

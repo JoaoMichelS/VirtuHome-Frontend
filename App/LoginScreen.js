@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } fr
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {FIREBASE_AUTH, auth} from "./src/services/firebaseConfig";
 import { ActivityIndicator } from "react-native-web";
+import axios from 'axios';
 
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');

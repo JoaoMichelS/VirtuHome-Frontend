@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Header />
-      <Text style={styles.Saldo}>Gastos Novembro: R$900,00</Text>
+      <Text style={styles.Saldo}>Gastos: R$900,00</Text>
       <VictoryPie data={DATA}
         colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC']}
         origin={{ y: 220 }}

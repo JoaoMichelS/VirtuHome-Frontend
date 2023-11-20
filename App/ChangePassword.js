@@ -5,39 +5,46 @@ import { updatePassword } from 'firebase/auth';
 
 export default function ChangePassword({ navigation }) { 
 
-  //const [password, setPassword] = useState('');
-  //const [newPassword, setNewPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [newPassword2, setNewPassword2] = useState('');
 
-  // const updatePassword = async () => {
-  //   try{
-    
-  // }
-  // }
+  const updatePassword = async () => {
+    if (newPassword != newPassword2) {
+      alert("Senhas diferentes");
+      return;
+    }
+
+    // try{
+    //   const 
+    // }
+  }
 
     return(
         <View style={styles.container}>
             <Header />
+            <Text>{newPassword}-{newPassword2}</Text>
             <Text style={styles.title}>Alterar Senha</Text>
             <TextInput style={styles.input}
               placeholder="Senha Atual"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
-              //onChangeText={(text) => setPassword(text)}
-              //value={password}
+              onChangeText={(text) => setPassword(text)}
+              value={password}
             />
             <TextInput style={styles.input2}
               placeholder="Nova Senha"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
-              //onChangeText={(text) => setNewPassword(text)}
-              //value={newPassword}
+              onChangeText={(text) => setNewPassword(text)}
+              value={newPassword}
             />
             <TextInput style={styles.input3}
               placeholder="Confirme Nova Senha"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
-              //onChangeText={(text) => setPassword(text)}
-              //value={password}
+              onChangeText={(text) => setNewPassword2(text)}
+              value={newPassword2}
             />
             <TouchableOpacity style={styles.Button} onPress={updatePassword}>
               <Text style={styles.ChangePassword}>SALVAR</Text>

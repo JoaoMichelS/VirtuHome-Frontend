@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import Header from './Header';
-
+import axios from 'axios';
 export default function NewGoal({ navigation }) { 
 
-  //const [goal, setGoal] =  useState('');
+  const [goal, setGoal] =  useState('');
+  const [valor, setValor] =  useState('');
 
-  // const addGoal = async () => {
+  const addGoal = async () => {
   //   try{
-  //     const NewTransaction = {
+  //     const newGoal = {
   //       goal: goal,
-  //       value: value,
+  //       valorMeta: valor,
   //      }
   //   }
-  // }
+  }
 
     return(
         <View style={styles.container}>
@@ -23,17 +24,17 @@ export default function NewGoal({ navigation }) {
               placeholder="Meta"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
-              //onChangeText={(text) => setGoal(text)}
-              //value={goal}
+              onChangeText={(text) => setGoal(text)}
+              value={goal}
             />
             <TextInput style={styles.input2}
               placeholder="Valor"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
-              //onChangeText={(text) => setPassword(text)}
-              //value={password}
+              onChangeText={(text) => setValor(text)}
+              value={valor}
             />
-            <TouchableOpacity style={styles.Button} >
+            <TouchableOpacity style={styles.Button} onPress={addGoal}>
               <Text style={styles.Add}>ADICIONAR</Text>
             </TouchableOpacity>
         </View>
