@@ -1,44 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import Header from './Header';
-import axios from 'axios';
-export default function NewGoal({ navigation }) { 
 
-  const [goal, setGoal] =  useState('');
-  const [valor, setValor] =  useState('');
+export default function NewAccount({ navigation }) { 
+    
+    const [name, setName] =  useState('');
+    const [saldo, setSaldo] =  useState('');
 
-  const addGoal = async () => {
-  //   try{
-  //     const newGoal = {
-  //       goal: goal,
-  //       valorMeta: valor,
-  //      }
-  //   }
-  }
+    const addAccount = async () => {}
 
-    return(
+    return (
         <View style={styles.container}>
             <Header />
-            <Text style={styles.title}>Nova Meta</Text>
+            <Text style={styles.title}>Nova Conta</Text>
             <TextInput style={styles.input}
-              placeholder="Meta"
+              placeholder="Nome"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
-              onChangeText={(text) => setGoal(text)}
-              value={goal}
+              onChangeText={(text) => setName(text)}
+              value={name}
             />
             <TextInput style={styles.input2}
-              placeholder="Valor"
+              placeholder="Saldo"
               placeholderTextColor={"#FECE00"}
               secureTextEntry
-              onChangeText={(text) => setValor(text)}
-              value={valor}
+              onChangeText={(text) => setSaldo(text)}
+              value={saldo}
             />
-            <TouchableOpacity style={styles.Button} onPress={addGoal}>
+            <TouchableOpacity style={styles.Button} onPress={addAccount}>
               <Text style={styles.Add}>ADICIONAR</Text>
             </TouchableOpacity>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -56,17 +49,17 @@ const styles = StyleSheet.create({
     }, 
 
     input: {
-      width: '80%', 
-      height: 50,
-      borderColor: '#FECE00',
-      borderWidth: 1,
-      borderRadius: 5,
-      paddingLeft: 8,
-      marginBottom: 12,
-      color: "#FECE00",
-      alignSelf: 'center',
-      marginTop: 90,
-    },
+        width: '80%', 
+        height: 50,
+        borderColor: '#FECE00',
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingLeft: 8,
+        marginBottom: 12,
+        color: "#FECE00",
+        alignSelf: 'center',
+        marginTop: 90,
+      },
 
     input2: {
       width: '80%', 
@@ -78,7 +71,7 @@ const styles = StyleSheet.create({
       marginBottom: 12,
       color: "#FECE00",
       alignSelf: 'center',
-      marginTop: 30,
+      marginTop: 50,
     },
 
     Button: {
@@ -89,7 +82,7 @@ const styles = StyleSheet.create({
       padding: 10, 
       alignSelf: 'center',
       width: 150,
-      marginTop: 80,
+      marginTop: 150,
       height: 50,
     },
 

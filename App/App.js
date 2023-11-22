@@ -11,6 +11,7 @@ import ChangePassword from './ChangePassword';
 import NewTransaction from './NewTransaction';
 import NewGoal from './NewGoal';
 import Notifications from './Notifications';
+import NewAccount from './NewAccount';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,7 @@ function App(){
         <Stack.Screen name="NewTransaction" component={NewTransaction} />
         <Stack.Screen name="NewGoal" component={NewGoal} />
         <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Screen name="NewAccount" component={NewAccount} />
       </Stack.Navigator>
     </NavigationContainer>
   )
