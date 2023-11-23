@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Header from './Header';
-import NewTransaction from './NewTransaction';
 
 export default function Transactions({ navigation }) {
 
@@ -9,6 +8,10 @@ export default function Transactions({ navigation }) {
 
   const NewTransaction = () => {
     navigation.navigate('NewTransaction')
+  };
+
+  const NewAccount = () => {
+    navigation.navigate('NewAccount')
   };
 
   return (
@@ -25,6 +28,9 @@ export default function Transactions({ navigation }) {
       <View style={styles.ButtonContainer}>
         <TouchableOpacity style={styles.Button} onPress={NewTransaction}>
           <Text style={styles.Add}>Adicionar Transação</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.Button2} onPress={NewAccount}>
+          <Text style={styles.Add2}>Adicionar Conta</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -71,6 +77,7 @@ const styles = StyleSheet.create({
     flex: 0.6,
     marginBottom: 50, 
     alignItems: 'center', 
+    flexDirection: 'column',
   },
 
   Button: {
@@ -80,8 +87,15 @@ const styles = StyleSheet.create({
     borderRadius: 5, 
     padding: 10, 
     width: 200,
-    marginTop: 80,
+    marginTop: 25,
     height: 50,
+    alignSelf: 'center',
+  },
+
+  Button2: {
+    padding: 10, 
+    width: 160,
+    marginTop: 12,
     alignSelf: 'center',
   },
 
@@ -91,5 +105,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
    },
 
+   Add2: {
+    alignSelf: 'center',
+    fontWeight: "bold", 
+    fontSize: 16,
+    color: '#FECE00',
+   },
 
 });
