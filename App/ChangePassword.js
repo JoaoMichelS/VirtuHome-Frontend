@@ -14,10 +14,6 @@ export default function ChangePassword({ navigation }) {
       alert("Senhas diferentes");
       return;
     }
-
-    // try{
-    //   const 
-    // }
   }
 
     return(

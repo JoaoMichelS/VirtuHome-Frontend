@@ -3,23 +3,43 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { ActivityIndicator } from "react-native-web";
 import { FIREBASE_AUTH } from './src/services/firebaseConfig';
+import axios from 'axios';
 
 function NewUserScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [password2, setPassword2] = useState('');
+  const [VerPassword, setVerPassword] = useState('');
   const auth = FIREBASE_AUTH; 
 
 
   const signUp = async () => {
+    if (password != VerPassword) {
+      alert("Senhas diferentes");
+      return ;
+    }
+
     try{
-      const response = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(response);
-      alert('Usuário Criado!');
+      const newUser = {
+        name: username,
+        email: email,
+        password: password
+      };
+      axios.post("http://192.168.15.33:3000/user" ,newUser).
+      then(function (response){
+        if (response.status == 200){
+          alert("Usuário cadastrado")
+          navigation.navigate('Login');
+        }
+        else if (response.status == 409){
+          alert('Usuário já existe');
+        }
+      }).catch(function (err){
+        alert('Erro ao criar usuário ou já existente');
+      });
     } catch (error) {
       console.log(error);
-      alert('Sign in failed: ' + error.message);
+      alert('Erro ao criar usuário: ' + error.message);
     }
   }
 
@@ -61,8 +81,8 @@ function NewUserScreen({ navigation }) {
         placeholder="Confirm Password"
         placeholderTextColor={"#FECE00"}
         secureTextEntry
-        onChangeText={(text) => setPassword2(text)}
-        value={password2}
+        onChangeText={(text) => setVerPassword(text)}
+        value={VerPassword}
       />
       <TouchableOpacity style={styles.button} onPress={signUp}>
         <Text style={styles.buttonText}>SIGN UP</Text>

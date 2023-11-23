@@ -2,30 +2,60 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import {FIREBASE_AUTH, auth} from "./src/services/firebaseConfig";
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import axios from 'axios';
 
 function ForgotPasswordScreen  ({ navigation }) {
     const [email, setEmail] = useState('');
+    const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const auth = FIREBASE_AUTH;
 
     const ForgotPassword = () => {
-        sendPasswordResetEmail(auth, email)
-        .then(() => {
-            alert("Email de alteração de senha enviado!")
-        }).catch((error) => {
-            alert("Email não enviado: " + error)
-        })
-      }
+      axios.post(`http://192.168.15.33:3000/user/login`, {email: email, password: oldPassword}).
+      then(function (response){
+        if (response.status == 200){
+          const id = response.data.id;
+          var newUser = response.data;
+          delete newUser.id;
+          newUser.password = newPassword;
+          axios.post(`http://localhost:3000/user/${id}`, newUser).
+          then(function (response_){
+            if (response_.status == 200){navigation.navigate('Login');}
+            else {alert('Erro ao atualizar usuário');};
+          }).catch(function (err){
+            alert('Erro ao atualizar usuário');
+          });
+        }
+        else {alert('Erro ao atualizar usuário');}
+      }).catch(function (err){
+        console.log(err);
+        alert('Erro ao atualizar Axios');
+      });
+    }
 
     return (
         <View style={styles.container}>
             <Text style={styles.ForgotPassword}>Recuperar senha</Text>
-            <Text style={styles.text}>Digite seu email para envio do link de recuperação:</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Email"
                 placeholderTextColor={"#FECE00"}
                 onChangeText={(text) => setEmail(text)}
                 value={email}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Senha Antiga"
+                placeholderTextColor={"#FECE00"}
+                onChangeText={(text) => setOldPassword(text)}
+                value={oldPassword}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Nova Senha"
+                placeholderTextColor={"#FECE00"}
+                onChangeText={(text) => setNewPassword(text)}
+                value={newPassword}
             />
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={styles.button} onPress={ForgotPassword}>
