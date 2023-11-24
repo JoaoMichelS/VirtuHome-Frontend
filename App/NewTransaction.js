@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-nativ
 import { SelectList } from 'react-native-dropdown-select-list';
 import Header from './Header';
 
-export default function NewTransaction({ navigation }) { 
+export default function NewTransaction({ route,  navigation }) { 
 
   const [category, setCategory] =  useState('');
   const [valor, setValor] = useState('');

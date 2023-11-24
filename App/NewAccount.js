@@ -1,13 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import Header from './Header';
+import axios from 'axios';
 
-export default function NewAccount({ navigation }) { 
+export default function NewAccount({ route, navigation }) { 
     
     const [name, setName] =  useState('');
-    const [saldo, setSaldo] =  useState('');
+    const [balance, setBalance] =  useState('');
+    const [status, setStatus] = useState('');
+    const [accountId, setAccountId] = useState('');
 
-    const addAccount = async () => {}
+    const addAccount = async () => {
+      try{
+        const NewAccount = {
+          name: name,
+          balance: balance,
+          status: status,
+          userId: route.params.userId,
+          accountId: accountId
+        };
+        axios.post("http://192.168.15.33:3000/account", NewAccount).
+        then(function (response){
+        if (response.status == 200){
+          alert("Conta cadastrada!")
+        }
+        else if (response.status == 409){
+          alert('Conta já existe!');
+        }
+      }).catch(function (err){
+        alert('Erro ao criar conta ou já existente');
+      });
+    } catch (error) {
+      console.log(error);
+      alert('Erro ao criar conta: ' + error.message);
+      }
+    }
 
     return (
         <View style={styles.container}>
@@ -16,16 +43,14 @@ export default function NewAccount({ navigation }) {
             <TextInput style={styles.input}
               placeholder="Nome"
               placeholderTextColor={"#FECE00"}
-              secureTextEntry
               onChangeText={(text) => setName(text)}
               value={name}
             />
             <TextInput style={styles.input2}
               placeholder="Saldo"
               placeholderTextColor={"#FECE00"}
-              secureTextEntry
-              onChangeText={(text) => setSaldo(text)}
-              value={saldo}
+              onChangeText={(text) => setBalance(text)}
+              value={balance}
             />
             <TouchableOpacity style={styles.Button} onPress={addAccount}>
               <Text style={styles.Add}>ADICIONAR</Text>

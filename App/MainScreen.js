@@ -9,7 +9,7 @@ import Goals from './Goals';
 import Historic from './Historic';
 
 const Tab = createBottomTabNavigator ();
-function MainScreen ({ navigation }) {
+function MainScreen ({ route, navigation }) {
     return (
         <Tab.Navigator
             screenOptions={{
@@ -24,17 +24,17 @@ function MainScreen ({ navigation }) {
                     height: 85,
                 }
             }}>
-            <Tab.Screen name="Home" component={Home} 
-                options={{
+            <Tab.Screen name="Home" component={Home} initialParams={{ userId: route.params.userId }}
+                options={{ 
                     headerShown: false,
                     tabBarIcon: ({ color, size, focused }) => {
                         if(focused){
                             return <Ionicons name="home" size={size} color={'#FECE00'}/>
                         }
                         return <Ionicons name="home-outline" size={size} color={'#FECE00'}/>
-                    }
+                    },
                 }}/>
-            <Tab.Screen name="Transactions" component={Transactions}
+            <Tab.Screen name="Transactions" component={Transactions} initialParams={{ userId: route.params.userId }}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size, focused }) => {
@@ -44,7 +44,7 @@ function MainScreen ({ navigation }) {
                         return <FontAwesome name="credit-card" size={size} color={'#FECE00'}/>
                     }
                 }}/>
-            <Tab.Screen name="Goals" component={Goals}
+            <Tab.Screen name="Goals" component={Goals} initialParams={{ userId: route.params.userId }}
             options={{
                 headerShown: false,
                 tabBarIcon: ({ color, size, focused }) => {
@@ -54,7 +54,7 @@ function MainScreen ({ navigation }) {
                     return <Ionicons name="checkmark-circle-outline" size={size} color={'#FECE00'}/>
                 }
             }}/>
-            <Tab.Screen name="Historic" component={Historic}
+            <Tab.Screen name="Historic" component={Historic} initialParams={{ userId: route.params.userId }}
             options={{
                 headerShown: false,
                 tabBarIcon: ({ color, size, focused }) => {

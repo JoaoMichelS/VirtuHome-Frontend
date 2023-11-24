@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Header from './Header';
 
-export default function Transactions({ navigation }) {
+export default function Transactions({ navigation, route}) {
 
   const [transactions, setTransactions] = useState([]);
 
@@ -11,7 +11,7 @@ export default function Transactions({ navigation }) {
   };
 
   const NewAccount = () => {
-    navigation.navigate('NewAccount')
+    navigation.navigate('NewAccount', { userId: route.params.userId })
   };
 
   return (
