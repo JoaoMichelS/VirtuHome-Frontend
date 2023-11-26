@@ -144,6 +144,7 @@ export default function NewTransaction({ navigation, route }) {
             />
             <TextInput style={styles.input2}
               placeholder="Valor"
+              keyboardType='numeric'
               placeholderTextColor={"#FECE00"}
               onChangeText={(text) => setValor(text)}
               value={valor}
