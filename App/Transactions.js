@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Header from './Header';
+import axios from 'axios';
 
 export default function Transactions({ navigation, route}) {
 
-  const [transactions, setTransactions] = useState([]);
+  const [userTransactions, setUserTransactions] = useState([]);
 
   const NewTransaction = () => {
     navigation.navigate('NewTransaction', { userId: route.params.userId })
@@ -14,15 +15,45 @@ export default function Transactions({ navigation, route}) {
     navigation.navigate('NewAccount', { userId: route.params.userId })
   };
 
+  useEffect( () => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      async function getTransactions() {
+          await axios.get(`http://192.168.15.33:3000/transaction/user/${route.params.userId}`)
+          .then(function (response) {
+              if (response.status == 200){
+                setUserTransactions(response.data);
+              }
+          })
+          .catch(function (err){
+              console.log("Error")
+          })
+    }
+    getTransactions();
+
+    if (route.params?.transactionCreated) {
+      // Se uma nova transação foi criada, atualize a lista
+      getTransactions();
+    }
+  });
+  return unsubscribe;
+  }, [navigation, route.params?.transactionCreated]);
+
   return (
     <View style={styles.container}>
       <Header />
-      <Text style={styles.title}>Gastos</Text>
+      <Text style={styles.title}>Transações</Text>
       <View style={styles.ContainerContent}>
         <ScrollView>
-          <Text style={styles.ContainerTransaction}>
-            <Text style={styles.Transaction}></Text>
-          </Text>
+          {userTransactions?.map((transaction, i) => {
+            return (
+            <TouchableOpacity key={i} style={styles.ContainerChamado}>
+                <Text style={styles.Departamento}>{transaction.type}</Text>
+                <Text style={styles.Assunto}>{transaction.amount}</Text>
+                <Text style={styles.Assunto}>{transaction.category}</Text>
+                <Text style={styles.Data}>{transaction.date}</Text>
+            </TouchableOpacity>    
+            );
+          })}
         </ScrollView>
       </View>
       <View style={styles.ButtonContainer}>
@@ -111,5 +142,28 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FECE00',
    },
+
+   Departamento: {
+    color: "#000000",
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 10,
+},
+
+Assunto: {
+    color: "#000000",
+    fontSize: 17,
+    marginTop: 10,
+    marginLeft: 10,
+},
+
+Data: {
+    fontSize: 12,
+    textAlign: 'right',
+    marginRight: '5%',
+    bottom : 76,
+    padding: -50,
+    paddingTop: '5%',
+}
 
 });

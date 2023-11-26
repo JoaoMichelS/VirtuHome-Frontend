@@ -63,6 +63,7 @@ export default function NewTransaction({ navigation, route }) {
     try {
       const response = await axios.post("http://192.168.15.33:3000/transaction", {
         accountId: selectedAccount,
+        userId: route.params.userId,
         type: selectedButton,
         category: selected2,
         date: date,
@@ -70,7 +71,7 @@ export default function NewTransaction({ navigation, route }) {
         amount: valor
       });
       console.log(response);
-      navigation.navigate('Main', {userId: route.params.userId});
+      navigation.navigate('Main', {userId: route.params.userId}, { transactionCreated: true });
   
     } catch (error) {
       console.error(error);
