@@ -148,22 +148,33 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginLeft: 10,
-},
+  },
 
-Assunto: {
-    color: "#000000",
-    fontSize: 17,
-    marginTop: 10,
-    marginLeft: 10,
-},
+  Assunto: {
+      color: "#000000",
+      fontSize: 17,
+      marginTop: 10,
+      marginLeft: 10,
+  },
 
-Data: {
-    fontSize: 12,
-    textAlign: 'right',
-    marginRight: '5%',
-    bottom : 76,
-    padding: -50,
-    paddingTop: '5%',
-}
+  Data: {
+      fontSize: 12,
+      textAlign: 'right',
+      marginRight: '5%',
+      bottom : 76,
+      padding: -50,
+      paddingTop: '5%',
+  },
+  
+  ContainerChamado: {
+    marginTop: 40,
+    backgroundColor: '#FDF6BA',
+    paddingTop: 15,
+    paddingBottom: 20,
+    borderColor: '#FDF6BA', 
+    borderRadius: 12,
+    width: 380,
+    alignSelf: 'center',
+},
 
 });

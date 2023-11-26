@@ -1,9 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { VictoryPie } from 'victory-native';
 import Header from './Header';
+import axios from 'axios';
 
-export default function Home() {
+export default function Home({ navigation, route}) {
+
+  const [userAccounts, setUserAccounts] = useState([]);
 
   const DATA = [
     {x: 'Moradia', y: 100},
@@ -13,6 +16,29 @@ export default function Home() {
     {x: 'Educação', y: 100}, 
     {x: 'Lazer', y: 100},
   ];
+
+  useEffect( () => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      async function getAccounts() {
+          await axios.get(`http://192.168.15.33:3000/account/user/${route.params.userId}`)
+          .then(function (response) {
+              if (response.status == 200){
+                setUserAccounts(response.data);
+              }
+          })
+          .catch(function (err){
+              console.log("Error")
+          })
+    }
+    getAccounts();
+
+    if (route.params?.transactionCreated) {
+      // Se uma nova transação foi criada, atualize a lista
+      getAccounts();
+    }
+  });
+  return unsubscribe;
+  }, [navigation, route.params?.transactionCreated]);
 
   return (
     <View style={styles.container}>
@@ -33,7 +59,16 @@ export default function Home() {
         />
         <Text style={styles.Contas}>Contas</Text>
         <Text style={styles.ContainerContas}>
-          <Text style={styles.Conta}></Text>
+        <ScrollView>
+          {userAccounts?.map((account, i) => {
+            return (
+            <TouchableOpacity key={i} style={styles.ContainerChamado}>
+                <Text style={styles.Departamento}>{account.name}</Text>
+                <Text style={styles.Assunto}>{account.balance}</Text>
+            </TouchableOpacity>    
+            );
+          })}
+        </ScrollView>
         </Text>
       </ScrollView>
     </View>
@@ -77,6 +112,31 @@ const styles = StyleSheet.create({
   Conta: {
     fontWeight: 'bold',
     fontSize: 20,
-  }
+  },
+
+  Departamento: {
+    color: "#000000",
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
+
+  Assunto: {
+      color: "#000000",
+      fontSize: 17,
+      marginTop: 10,
+      marginLeft: 10,
+  },
+
+  Data: {
+      fontSize: 12,
+      textAlign: 'right',
+      marginRight: '5%',
+      bottom : 76,
+      padding: -50,
+      paddingTop: '5%',
+  },
+
+
 
 });

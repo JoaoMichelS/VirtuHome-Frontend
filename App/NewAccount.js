@@ -8,6 +8,7 @@ export default function NewAccount({ navigation, route }) {
     const [name, setName] =  useState('');
     const [balance, setBalance] =  useState('');
     const [status, setStatus] =  useState('');
+    
 
     const addAccount = async () => {
       try{
@@ -19,6 +20,7 @@ export default function NewAccount({ navigation, route }) {
       }).then(function (response){
         if (response.status == 200){
           alert("Conta criada!");
+          navigation.navigate('Main', {userId: route.params.userId}, { transactionCreated: true });
         } else {alert('Erro ao criar conta!')};
       }).catch(function (err){
         console.log(err);
@@ -40,6 +42,7 @@ export default function NewAccount({ navigation, route }) {
               value={name}
             />
             <TextInput style={styles.input2}
+              keyboardType='numeric'
               placeholder="Balance"
               placeholderTextColor={"#FECE00"}
               onChangeText={(text) => setBalance(text)}
