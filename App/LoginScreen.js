@@ -11,16 +11,20 @@ function LoginScreen({ navigation }) {
   const auth = FIREBASE_AUTH; 
 
   const signIn = async () => {
-    try{
-      const response = await signInWithEmailAndPassword(auth, email, password);
+    try {
+      const response = await axios.post("http://192.168.15.33:3000/user/login", {
+        email: email,
+        password: password
+      });
       console.log(response);
-      alert('logou!');
-      navigation.navigate('Main');
+      navigation.navigate('Main', { userId: response.data.id } );
+  
     } catch (error) {
-      console.log(error);
-      alert('Sign in failed: ' + error.message);
+      console.error(error);
+      alert('Erro ao logar Axios: ' + error.message);
+      // Lógica adicional para lidar com o erro
     }
-  }
+  };
 
   const ForgotPassword = () => {
     navigation.navigate('ForgotPassword')

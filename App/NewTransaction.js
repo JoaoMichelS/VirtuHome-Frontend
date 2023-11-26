@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, ScrollView } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import { SelectList } from 'react-native-dropdown-select-list';
 import Header from './Header';
 import DateTimePicker from '@react-native-community/datetimepicker';
-export default function NewTransaction({ navigation }) { 
+import axios from 'axios';
+
+export default function NewTransaction({ navigation, route }) { 
 
   const [selectedButton, setSelectedButton] = useState(null);
   const handleButtonSelect = (buttonType) => {
@@ -12,12 +15,23 @@ export default function NewTransaction({ navigation }) {
 
   const [selected, setSelected] = React.useState("");
   const [selected2, setSelected2] = React.useState("");
+  const [accounts, setAccounts] = useState([]);
+  const [selectedAccount, setSelectedAccount] = useState('');
 
-  const data = [
-      {key:'1', value:'Itau'},
-      {key:'2', value:'Nubank'},
-      {key:'3', value:'XP'},
-  ]
+  useEffect( () => {
+    async function getAccounts() {
+        await axios.get(`http://192.168.15.33:3000/account/user/${route.params.userId}`)
+        .then(function (response) {
+            if (response.status == 200){
+                setAccounts(response.data);
+            }
+        })
+        .catch(function (err){
+            console.log("Error")
+        })
+    }
+    getAccounts()
+  }, []);
   
   const data2 = [
       {key:'1', value:'Moradia'},
@@ -46,42 +60,59 @@ export default function NewTransaction({ navigation }) {
   const [valor, setValor] = useState('');
 
   const addTransaction = async () => {
-  //   try{
-  //     const newTransaction = {
-  //       category: category,
-  //       valorGasto: valor,
-  //     }
-  //   }
-  }
+    try {
+      const response = await axios.post("http://192.168.15.33:3000/transaction", {
+        accountId: selectedAccount,
+        type: selectedButton,
+        category: selected2,
+        date: date,
+        description: descricao,
+        amount: valor
+      });
+      console.log(response);
+      navigation.navigate('Main', {userId: route.params.userId});
+  
+    } catch (error) {
+      console.error(error);
+      alert('Erro ao logar Axios: ' + error.message);
+      // Lógica adicional para lidar com o erro
+    }
+  };
 
     return(
         <View style={styles.container}>
+          <ScrollView>
             <Header />
             <Text style={styles.title}>Nova Transacao</Text>
             <Text style={styles.type}>Tipo:</Text>
             <View style={styles.ContainerType}>
               <TouchableOpacity style={[styles.ButtonEntrada, selectedButton === 'Entrada' && styles.selectedButton]}
-                onPress={() => handleButtonSelect('Entrada')}>
+                onPress={() => handleButtonSelect('income')}>
                 <Text style={[styles.entrada, selectedButton === 'Entrada' && styles.selectedText]}>Entrada</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.ButtonSaida, selectedButton === 'Saida' && styles.selectedButton]}
-                onPress={() => handleButtonSelect('Saida')}>
+                onPress={() => handleButtonSelect('expense')}>
                 <Text style={[styles.saida, selectedButton === 'Saida' && styles.selectedText]}>Saída</Text>
               </TouchableOpacity>
             </View>
-            <SelectList 
-              setSelected={(val) => setSelected(val)} 
-              data={data} 
-              save="value"
-              search={false}
-              placeholder='Conta'
-              inputStyles={{color:"#FECE00", marginLeft:-10,}}
-              dropdownTextStyles={{color:"#FECE00"}}
-              dropdownStyles={{borderColor:"#FECE00", marginLeft:40, marginRight:40, borderRadius:5}}
-              boxStyles={{borderColor:"#FECE00", marginLeft:40, marginRight:40, marginTop:25, borderRadius:5, height:50,}}
-              // onSelect={(val) => setCategory(val)}
-              // value={category}
-            />
+            <Text style={styles.type}>Conta:</Text>
+            <Picker
+                selectedValue={selectedAccount}
+                onValueChange={(itemValue) => setSelectedAccount(itemValue)}
+                style={{
+                  color: '#FECE00', // Cor do texto selecionado
+                  marginLeft: -10, // Margem esquerda
+                }}
+                dropdownIconColor="#FECE00" // Cor do ícone do dropdown
+                itemStyle={{
+                  color: '#FECE00', // Cor do texto nos itens do dropdown
+                }}
+              >
+                {accounts.map((account) => (
+                <Picker.Item key={account.userId} label={account.name} value={account.accountId} />
+                // Substitua 'id' e 'nome' pelas chaves correspondentes aos dados de cada conta
+              ))}
+            </Picker>
             <SelectList
               setSelected={(val) => setSelected2(val)} 
               data={data2} 
@@ -107,20 +138,19 @@ export default function NewTransaction({ navigation }) {
             <TextInput style={styles.input}
               placeholder="Descrição"
               placeholderTextColor={"#FECE00"}
-              secureTextEntry
               onChangeText={(text) => setDescricao(text)}
               value={descricao}
             />
             <TextInput style={styles.input2}
               placeholder="Valor"
               placeholderTextColor={"#FECE00"}
-              secureTextEntry
               onChangeText={(text) => setValor(text)}
               value={valor}
             />
             <TouchableOpacity style={styles.Button} onPress={addTransaction}>
               <Text style={styles.Add}>ADICIONAR</Text>
             </TouchableOpacity>
+          </ScrollView>
         </View>
     );
 }
