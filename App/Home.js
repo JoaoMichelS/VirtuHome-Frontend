@@ -8,14 +8,33 @@ export default function Home({ navigation, route}) {
 
   const [userAccounts, setUserAccounts] = useState([]);
 
-  const DATA = [
-    {x: 'Moradia', y: 100},
-    {x: 'Alimentação', y: 100},
-    {x: 'Transporte', y: 100},
-    {x: 'Saúde', y: 100},
-    {x: 'Educação', y: 100}, 
-    {x: 'Lazer', y: 100},
-  ];
+  useEffect( () => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      async function getUserAccounts() {
+          await axios.get(`http://192.168.15.33:3000/account/user/${route.params.userId}`)
+          .then(function (response) {
+              if (response.status == 200){
+                setUserAccounts(response.data);
+              }
+          }) 
+          .catch(function (err){
+              console.log("Error")
+          })
+    }
+    getUserAccounts();
+
+    if (route.params?.transactionCreated) {
+      // Se uma nova transação foi criada, atualize a lista
+      getUserAccounts();
+    }
+  });
+  return unsubscribe;
+  }, [navigation, route.params?.transactionCreated]);
+
+  const pieData = userAccounts.map((account) => ({
+    x: account.name, 
+    y: parseFloat(account.balance), 
+  }));
 
   useEffect( () => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -45,17 +64,12 @@ export default function Home({ navigation, route}) {
       <Header />
       <ScrollView>
         <Text style={styles.Saldo}>Saldo Atual: </Text>
-        <VictoryPie data={DATA}
+        <VictoryPie
+          data={pieData}
           colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC']}
-          origin={{ y: 200 }}
-          labels={
-            ({ datum }) => `${datum.x}: ${datum.y}`
-          }
+          labels={({ datum }) => `${datum.x}: ${datum.y}`} // Formato do label
           labelRadius={50}
-          labelPlacement={({ index }) => index
-            ? "parallel"
-            : "parallel"
-          }
+          labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
         />
         <Text style={styles.Contas}>Contas</Text>
         <Text style={styles.ContainerContas}>

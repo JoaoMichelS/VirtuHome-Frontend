@@ -23,7 +23,7 @@ export default function Transactions({ navigation, route}) {
               if (response.status == 200){
                 setUserTransactions(response.data);
               }
-          })
+          }) 
           .catch(function (err){
               console.log("Error")
           })
