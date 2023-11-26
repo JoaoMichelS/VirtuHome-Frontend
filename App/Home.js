@@ -31,6 +31,9 @@ export default function Home({ navigation, route}) {
   return unsubscribe;
   }, [navigation, route.params?.transactionCreated]);
 
+  const totalBalance = userAccounts.reduce((accumulator, account) => accumulator + parseFloat(account.balance), 0);
+  const formattedTotalBalance = totalBalance.toFixed(2);
+
   const pieData = userAccounts.map((account) => ({
     x: account.name, 
     y: parseFloat(account.balance), 
@@ -63,7 +66,7 @@ export default function Home({ navigation, route}) {
     <View style={styles.container}>
       <Header />
       <ScrollView>
-        <Text style={styles.Saldo}>Saldo Atual: </Text>
+        <Text style={styles.Saldo}>{`Saldo Total: R$${formattedTotalBalance}`}</Text>
         <VictoryPie
           data={pieData}
           colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC']}
