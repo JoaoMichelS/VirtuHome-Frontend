@@ -12,7 +12,7 @@ export default function NewAccount({ navigation, route }) {
 
     const addAccount = async () => {
       try{
-        const response = await axios.post("http://192.168.15.33:3000/account", {
+        const response = await axios.post("http://192.168.2.103:3000/account", {
         name: name,
         balance: balance,
         status: status,

@@ -20,7 +20,7 @@ export default function NewTransaction({ navigation, route }) {
 
   useEffect( () => {
     async function getAccounts() {
-        await axios.get(`http://192.168.15.33:3000/account/user/${route.params.userId}`)
+        await axios.get(`http://192.168.2.103:3000/account/user/${route.params.userId}`)
         .then(function (response) {
             if (response.status == 200){
                 setAccounts(response.data);
@@ -40,6 +40,7 @@ export default function NewTransaction({ navigation, route }) {
       {key:'4', value:'Saúde'},
       {key:'5', value:'Educação'},
       {key:'6', value:'Lazer'},
+      {key:'7', value:'Outros'},
   ]
 
   const [account, setAccount] =  useState('');
@@ -61,7 +62,7 @@ export default function NewTransaction({ navigation, route }) {
 
   const addTransaction = async () => {
     try {
-      const response = await axios.post("http://192.168.15.33:3000/transaction", {
+      const response = await axios.post("http://192.168.2.103:3000/transaction", {
         accountId: selectedAccount,
         userId: route.params.userId,
         type: selectedButton,
@@ -87,13 +88,13 @@ export default function NewTransaction({ navigation, route }) {
             <Text style={styles.title}>Nova Transacao</Text>
             <Text style={styles.type}>Tipo:</Text>
             <View style={styles.ContainerType}>
-              <TouchableOpacity style={[styles.ButtonEntrada, selectedButton === 'Entrada' && styles.selectedButton]}
+              <TouchableOpacity style={[styles.ButtonEntrada, selectedButton === 'income' && styles.selectedButton]}
                 onPress={() => handleButtonSelect('income')}>
-                <Text style={[styles.entrada, selectedButton === 'Entrada' && styles.selectedText]}>Entrada</Text>
+                <Text style={[styles.entrada, selectedButton === 'income' && styles.selectedText]}>Entrada</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.ButtonSaida, selectedButton === 'Saida' && styles.selectedButton]}
+              <TouchableOpacity style={[styles.ButtonSaida, selectedButton === 'expense' && styles.selectedButton]}
                 onPress={() => handleButtonSelect('expense')}>
-                <Text style={[styles.saida, selectedButton === 'Saida' && styles.selectedText]}>Saída</Text>
+                <Text style={[styles.saida, selectedButton === 'expense' && styles.selectedText]}>Saída</Text>
               </TouchableOpacity>
             </View>
             <Text style={styles.type}>Conta:</Text>
@@ -102,11 +103,17 @@ export default function NewTransaction({ navigation, route }) {
                 onValueChange={(itemValue) => setSelectedAccount(itemValue)}
                 style={{
                   color: '#FECE00', // Cor do texto selecionado
-                  marginLeft: -10, // Margem esquerda
+                  marginTop: 20,
                 }}
                 dropdownIconColor="#FECE00" // Cor do ícone do dropdown
                 itemStyle={{
                   color: '#FECE00', // Cor do texto nos itens do dropdown
+                  width: 335,
+                  alignSelf: 'center',
+                  borderColor: '#FECE00',
+                  borderWidth: 1,
+                  borderRadius: 5,
+                  height: 50,
                 }}
               >
                 {accounts.map((account) => (
@@ -134,6 +141,7 @@ export default function NewTransaction({ navigation, route }) {
               display="default"
               onChange={onChange}
               placeholderText='Data'
+              placeholderTextColor= '#FECE00'
               style={styles.dateTimePicker}
             />
             <TextInput style={styles.input}

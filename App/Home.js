@@ -11,7 +11,7 @@ export default function Home({ navigation, route}) {
   useEffect( () => {
     const unsubscribe = navigation.addListener('focus', () => {
       async function getUserAccounts() {
-          await axios.get(`http://192.168.15.33:3000/account/user/${route.params.userId}`)
+          await axios.get(`http://192.168.2.103:3000/account/user/${route.params.userId}`)
           .then(function (response) {
               if (response.status == 200){
                 setUserAccounts(response.data);
@@ -42,7 +42,7 @@ export default function Home({ navigation, route}) {
   useEffect( () => {
     const unsubscribe = navigation.addListener('focus', () => {
       async function getAccounts() {
-          await axios.get(`http://192.168.15.33:3000/account/user/${route.params.userId}`)
+          await axios.get(`http://192.168.2.103:3000/account/user/${route.params.userId}`)
           .then(function (response) {
               if (response.status == 200){
                 setUserAccounts(response.data);
@@ -69,14 +69,14 @@ export default function Home({ navigation, route}) {
         <Text style={styles.Saldo}>{`Saldo Total: R$${formattedTotalBalance}`}</Text>
         <VictoryPie
           data={pieData}
-          colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC']}
+          colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
           labels={({ datum }) => `${datum.x}: ${datum.y}`} // Formato do label
           labelRadius={50}
           labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
         />
         <Text style={styles.Contas}>Contas</Text>
-        <Text style={styles.ContainerContas}>
-        <ScrollView>
+        <View style={styles.ContainerContas}>
+        {/* <ScrollView> */}
           {userAccounts?.map((account, i) => {
             return (
             <TouchableOpacity key={i} style={styles.ContainerChamado}>
@@ -85,8 +85,8 @@ export default function Home({ navigation, route}) {
             </TouchableOpacity>    
             );
           })}
-        </ScrollView>
-        </Text>
+        {/* </ScrollView> */}
+        </View>
       </ScrollView>
     </View>
   );
@@ -116,14 +116,8 @@ const styles = StyleSheet.create({
 
   ContainerContas: {
     marginTop: 25,
-    backgroundColor: '#FFFFFF',
-    paddingTop: 15,
-    paddingBottom: 15,
-    borderColor: '#FFFFFF', 
-    width: 300,
-    alignSelf: 'center',
-    textAlign: 'center',
-    borderRadius: 5,
+    flexDirection: 'column',
+    marginBottom: 150,
   },
 
   Conta: {
@@ -133,16 +127,18 @@ const styles = StyleSheet.create({
 
   Departamento: {
     color: "#000000",
-    fontSize: 20,
+    fontSize: 21,
     fontWeight: 'bold',
     marginLeft: 10,
+    marginTop: 10,
   },
 
   Assunto: {
       color: "#000000",
-      fontSize: 17,
-      marginTop: 10,
+      fontSize: 18,
+      marginTop: 6,
       marginLeft: 10,
+      alignSelf: 'center',
   },
 
   Data: {
@@ -154,6 +150,16 @@ const styles = StyleSheet.create({
       paddingTop: '5%',
   },
 
-
+  ContainerChamado: {
+    flexDirection: 'row',
+    marginTop: 15,
+    backgroundColor: '#FFFFFF',
+    paddingTop: 5,
+    paddingBottom: 10,
+    width: 330,
+    alignSelf: 'center',
+    height: 55,
+    borderRadius: 5,
+  }
 
 });

@@ -12,7 +12,7 @@ function LoginScreen({ navigation }) {
 
   const signIn = async () => {
     try {
-      const response = await axios.post("http://192.168.15.33:3000/user/login", {
+      const response = await axios.post("http://192.168.2.103:3000/user/login", {
         email: email,
         password: password
       });
