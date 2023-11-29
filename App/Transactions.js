@@ -16,43 +16,61 @@ export default function Transactions({ navigation, route}) {
     navigation.navigate('NewAccount', { userId: route.params.userId })
   };
 
-  useEffect( () => {
+  useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       async function getTransactions() {
-          await axios.get(`http://${API_IP}:3000/transaction/user/${route.params.userId}`)
-          .then(function (response) {
-              if (response.status == 200){
-                setUserTransactions(response.data);
-              }
-          }) 
-          .catch(function (err){
-              console.log("Error")
+        await axios.get(`http://${API_IP}:3000/transaction/user/${route.params.userId}`)
+          .then(async function (response) {
+            if (response.status == 200) {
+              const transactions = response.data;
+              const transactionsWithAccountNames = await Promise.all(transactions.map(async (transaction) => {
+                const accountResponse = await axios.get(`http://${API_IP}:3000/account/${transaction.accountId}`);
+                const accountName = accountResponse.data.name; 
+                console.log(accountName);
+                return { ...transaction, accountName };
+              }));
+              console.log(transactionsWithAccountNames);
+              setUserTransactions(transactionsWithAccountNames);
+            }
           })
-    }
-    getTransactions();
-
-    if (route.params?.transactionCreated) {
+          .catch(function (err) {
+            console.log("Error")
+          })
+      }
       getTransactions();
-    }
-  });
-  return unsubscribe;
+  
+      if (route.params?.transactionCreated) {
+        getTransactions();
+      }
+    });
+    return unsubscribe;
   }, [navigation, route.params?.transactionCreated]);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
+  };
+  
   return (
     <View style={styles.container}>
       <Header />
       <Text style={styles.title}>Transações</Text>
       <View style={styles.ContainerContent}>
         <ScrollView>
-          {userTransactions?.map((transaction, i) => {
+        {userTransactions?.map((transaction, i) => {
+          const formattedDate = formatDate(transaction.date); // Chamando a função para formatar a data
             return (
             <TouchableOpacity key={i} style={styles.ContainerChamado}>
                 <Text style={styles.Departamento}>
                   {transaction.type === 'expense' ? 'Despesa' : transaction.type === 'income' ? 'Receita' : 'Outro'}
                 </Text>
-                <Text style={styles.Assunto}>{transaction.amount}</Text>
-                <Text style={styles.Assunto}>{transaction.category}</Text>
-                <Text style={styles.Data}>{transaction.date}</Text>
+                <Text style={styles.Assunto}>Valor: R${transaction.amount}</Text>
+                <Text style={styles.Assunto}>Conta: {transaction.accountName}</Text>
+                <Text style={styles.Assunto}>Categoria: {transaction.category}</Text>
+                <Text style={styles.Data}>Data: {formattedDate}</Text> 
             </TouchableOpacity>    
             );
           })}
@@ -163,9 +181,8 @@ const styles = StyleSheet.create({
       fontSize: 12,
       textAlign: 'right',
       marginRight: '5%',
-      bottom : 76,
+      bottom : 110,
       padding: -50,
-      paddingTop: '5%',
   },
   
   ContainerChamado: {
