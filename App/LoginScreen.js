@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import {FIREBASE_AUTH, auth} from "./src/services/firebaseConfig";
 import { ActivityIndicator } from "react-native-web";
 import axios from 'axios';
+import { API_IP } from './config';
 
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -12,7 +13,7 @@ function LoginScreen({ navigation }) {
 
   const signIn = async () => {
     try {
-      const response = await axios.post("http://192.168.2.103:3000/user/login", {
+      const response = await axios.post(`http://${API_IP}:3000/user/login`, {
         email: email,
         password: password
       });

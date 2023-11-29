@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Header from './Header';
 import axios from 'axios';
+import { API_IP } from './config';
 
 export default function Transactions({ navigation, route}) {
 
@@ -18,7 +19,7 @@ export default function Transactions({ navigation, route}) {
   useEffect( () => {
     const unsubscribe = navigation.addListener('focus', () => {
       async function getTransactions() {
-          await axios.get(`http://192.168.15.33:3000/transaction/user/${route.params.userId}`)
+          await axios.get(`http://${API_IP}:3000/transaction/user/${route.params.userId}`)
           .then(function (response) {
               if (response.status == 200){
                 setUserTransactions(response.data);
@@ -31,7 +32,6 @@ export default function Transactions({ navigation, route}) {
     getTransactions();
 
     if (route.params?.transactionCreated) {
-      // Se uma nova transação foi criada, atualize a lista
       getTransactions();
     }
   });
@@ -47,7 +47,9 @@ export default function Transactions({ navigation, route}) {
           {userTransactions?.map((transaction, i) => {
             return (
             <TouchableOpacity key={i} style={styles.ContainerChamado}>
-                <Text style={styles.Departamento}>{transaction.type}</Text>
+                <Text style={styles.Departamento}>
+                  {transaction.type === 'expense' ? 'Despesa' : transaction.type === 'income' ? 'Receita' : 'Outro'}
+                </Text>
                 <Text style={styles.Assunto}>{transaction.amount}</Text>
                 <Text style={styles.Assunto}>{transaction.category}</Text>
                 <Text style={styles.Data}>{transaction.date}</Text>

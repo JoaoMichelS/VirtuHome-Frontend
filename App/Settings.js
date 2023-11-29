@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Switch } from 'react-native';
 import Header from './Header';
+import { API_IP } from './config';
 
 export default function Settings({ navigation }) {
 

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import { VictoryPie } from 'victory-native';
 import Header from './Header';
 import axios from 'axios';
+import { API_IP } from './config';
 
 export default function Home({ navigation, route}) {
 
@@ -11,7 +12,7 @@ export default function Home({ navigation, route}) {
   useEffect( () => {
     const unsubscribe = navigation.addListener('focus', () => {
       async function getUserAccounts() {
-          await axios.get(`http://192.168.2.103:3000/account/user/${route.params.userId}`)
+          await axios.get(`http://${API_IP}:3000/account/user/${route.params.userId}`)
           .then(function (response) {
               if (response.status == 200){
                 setUserAccounts(response.data);
@@ -70,7 +71,7 @@ export default function Home({ navigation, route}) {
         <VictoryPie
           data={pieData}
           colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
-          labels={({ datum }) => `${datum.x}: ${datum.y}`} // Formato do label
+          labels={({ datum }) => `${datum.x}: R$${datum.y}`} // Formato do label
           labelRadius={50}
           labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
         />
@@ -81,7 +82,7 @@ export default function Home({ navigation, route}) {
             return (
             <TouchableOpacity key={i} style={styles.ContainerChamado}>
                 <Text style={styles.Departamento}>{account.name}</Text>
-                <Text style={styles.Assunto}>{account.balance}</Text>
+                <Text style={styles.Assunto}>R${account.balance}</Text>
             </TouchableOpacity>    
             );
           })}

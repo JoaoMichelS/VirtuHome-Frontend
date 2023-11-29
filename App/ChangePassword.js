@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import Header from './Header';
 import { updatePassword } from 'firebase/auth';
+import { API_IP } from './config';
 
 export default function ChangePassword({ navigation }) { 
 

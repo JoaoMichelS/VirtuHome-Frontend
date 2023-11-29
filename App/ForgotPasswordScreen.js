@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } fr
 import {FIREBASE_AUTH, auth} from "./src/services/firebaseConfig";
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import axios from 'axios';
+import { API_IP } from './config';
 
 function ForgotPasswordScreen  ({ navigation }) {
     const [email, setEmail] = useState('');
@@ -10,14 +11,14 @@ function ForgotPasswordScreen  ({ navigation }) {
     const [newPassword, setNewPassword] = useState('');
 
     const ForgotPassword = () => {
-      axios.post(`http://192.168.15.33:3000/user/login`, {email: email, password: oldPassword}).
+      axios.post(`http://${API_IP}:3000/user/login`, {email: email, password: oldPassword}).
       then(function (response){
         if (response.status == 200){
           const id = response.data.id;
           var newUser = response.data;
           delete newUser.id;
           newUser.password = newPassword;
-          axios.post(`http://192.168.15.33:3000/user/${id}`, newUser).
+          axios.post(`http://${API_IP}:3000/user/${id}`, newUser).
           then(function (response_){
             if (response_.status == 200){navigation.navigate('Login');}
             else {alert('Erro ao atualizar usuário');};

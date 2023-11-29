@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Header from './Header.js';
+import { API_IP } from './config';
 
 export default function Notifications() {
     return(

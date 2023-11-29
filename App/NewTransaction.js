@@ -5,6 +5,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import Header from './Header';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
+import { API_IP } from './config';
 
 export default function NewTransaction({ navigation, route }) { 
 
@@ -20,7 +21,7 @@ export default function NewTransaction({ navigation, route }) {
 
   useEffect( () => {
     async function getAccounts() {
-        await axios.get(`http://192.168.2.103:3000/account/user/${route.params.userId}`)
+        await axios.get(`http://${API_IP}:3000/account/user/${route.params.userId}`)
         .then(function (response) {
             if (response.status == 200){
                 setAccounts(response.data);
@@ -62,7 +63,7 @@ export default function NewTransaction({ navigation, route }) {
 
   const addTransaction = async () => {
     try {
-      const response = await axios.post("http://192.168.2.103:3000/transaction", {
+      const response = await axios.post(`http://${API_IP}:3000/transaction`, {
         accountId: selectedAccount,
         userId: route.params.userId,
         type: selectedButton,

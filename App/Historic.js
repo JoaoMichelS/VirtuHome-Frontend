@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Header from './Header';
 import { VictoryChart, VictoryGroup, VictoryBar, VictoryLabel, VictoryTheme } from 'victory-native';
+import { API_IP } from './config';
 
 export default function Historic() { 
 

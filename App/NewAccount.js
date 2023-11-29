@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import Header from './Header';
 import axios from 'axios';
+import { API_IP } from './config';
 
 export default function NewAccount({ navigation, route }) { 
     
@@ -12,7 +13,7 @@ export default function NewAccount({ navigation, route }) {
 
     const addAccount = async () => {
       try{
-        const response = await axios.post("http://192.168.2.103:3000/account", {
+        const response = await axios.post(`http://${API_IP}:3000/account`, {
         name: name,
         balance: balance,
         status: status,

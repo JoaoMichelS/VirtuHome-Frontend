@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput, ScrollView } from 'react-native';
 import Header from './Header';
 import axios from 'axios';
+import { API_IP } from './config';
+
 export default function NewGoal({ navigation }) { 
 
   const [goal, setGoal] =  useState('');

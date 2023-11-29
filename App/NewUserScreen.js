@@ -4,6 +4,7 @@ import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } fr
 import { ActivityIndicator } from "react-native-web";
 import { FIREBASE_AUTH } from './src/services/firebaseConfig';
 import axios from 'axios';
+import { API_IP } from './config';
 
 function NewUserScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -25,7 +26,7 @@ function NewUserScreen({ navigation }) {
         password: password,
         operator: false,
       };
-      axios.post("http://192.168.15.33:3000/user", newUser).
+      axios.post(`http://${API_IP}:3000/user`, newUser).
       then(function (response){
         if (response.status == 200){
           alert("Usuário cadastrado")

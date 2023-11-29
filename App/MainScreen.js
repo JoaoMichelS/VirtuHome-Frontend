@@ -7,6 +7,7 @@ import Home from './Home';
 import Transactions from './Transactions';
 import Goals from './Goals';
 import Historic from './Historic';
+import { API_IP } from './config';
 
 const Tab = createBottomTabNavigator ();
 function MainScreen ({ navigation, route }) {
