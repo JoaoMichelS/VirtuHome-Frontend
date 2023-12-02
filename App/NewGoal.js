@@ -54,9 +54,7 @@ export default function NewGoal({ navigation, route }) {
         userId: route.params.userId,
         description: description,
         monthlyIncome: monthlyIncome,
-        numberOfMonths: numberOfMonths,
-        targetValue: ((monthlyIncome * numberOfMonths) / (percentageSave * 0.01)),
-        percentageSave: percentageSave,
+        targetValue: targetValue,
         status: "active", //'active' | 'completed' | 'abandoned'
         startDate: startDate,
         endDate: endDate, 
