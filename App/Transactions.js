@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import Header from './Header';
 import axios from 'axios';
 import { API_IP } from './config';
+import EditTransaction from './EditTransaction';
 
 export default function Transactions({ navigation, route}) {
 
@@ -15,7 +16,7 @@ export default function Transactions({ navigation, route}) {
   const NewAccount = () => {
     navigation.navigate('NewAccount', { userId: route.params.userId })
   };
-
+ 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       async function getTransactions() {
@@ -51,6 +52,10 @@ export default function Transactions({ navigation, route}) {
     const year = date.getFullYear();
     return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
   };
+
+  const EditTransaction = () => {
+    navigation.navigate('EditTransaction')
+  };
   
   return (
     <View style={styles.container}>
@@ -61,7 +66,7 @@ export default function Transactions({ navigation, route}) {
         {userTransactions?.map((transaction, i) => {
           const formattedDate = formatDate(transaction.date); // Chamando a função para formatar a data
             return (
-            <TouchableOpacity key={i} style={styles.ContainerChamado}>
+            <TouchableOpacity key={i} style={styles.ContainerChamado} onPress={EditTransaction}>
                 <Text style={styles.Departamento}>
                   {transaction.type === 'expense' ? 'Despesa' : transaction.type === 'income' ? 'Receita' : 'Outro'}
                 </Text>

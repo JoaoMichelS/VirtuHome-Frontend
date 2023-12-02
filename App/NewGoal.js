@@ -236,6 +236,7 @@ const styles = StyleSheet.create({
      fontWeight: "bold",
      fontSize: 18,
     },
+    
     dateTimePicker: {
       borderColor: '#FECE00',
       borderWidth: 1,

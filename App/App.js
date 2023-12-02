@@ -12,6 +12,8 @@ import NewTransaction from './NewTransaction';
 import NewGoal from './NewGoal';
 import Notifications from './Notifications';
 import NewAccount from './NewAccount';
+import EditTransaction from './EditTransaction';
+import EditGoal from './EditGoal';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +31,8 @@ function App(){
         <Stack.Screen name="NewGoal" component={NewGoal} />
         <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="NewAccount" component={NewAccount} />
+        <Stack.Screen name="EditTransaction" component={EditTransaction} />
+        <Stack.Screen name="EditGoal" component={EditGoal} />
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -92,9 +92,9 @@ export default function NewTransaction({ navigation, route }) {
 
     return(
         <View style={styles.container}>
-          <ScrollView>
             <Header />
             <Text style={styles.title}>Nova Transacao</Text>
+            <ScrollView>
             <Text style={styles.type}>Tipo:</Text>
             <View style={styles.ContainerType}>
               <TouchableOpacity style={[styles.ButtonEntrada, selectedButton === 'income' && styles.selectedButton]}
@@ -300,6 +300,7 @@ const styles = StyleSheet.create({
       width: 150,
       marginTop: 28,
       height: 50,
+      marginBottom: 50,
     },
 
     Add: {

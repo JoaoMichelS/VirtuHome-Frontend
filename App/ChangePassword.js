@@ -10,15 +10,16 @@ export default function ChangePassword({ navigation }) {
   const [newPassword, setNewPassword] = useState('');
   const [newPassword2, setNewPassword2] = useState('');
 
+  const [senhaAtual, setSenhaAtual] = useState('SuaSenhaAtual');
+  const handleChangeSenhaAtual = (text) => {
+    setSenhaAtual(text);
+  };
+
   const updatePassword = async () => {
     if (newPassword != newPassword2) {
       alert("Senhas diferentes");
       return;
     }
-
-    // try{
-    //   const 
-    // }
   }
 
     return(

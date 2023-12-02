@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { VictoryPie } from 'victory-native';
 import Header from './Header';
 import axios from 'axios';
@@ -68,6 +69,18 @@ export default function Home({ navigation, route}) {
       <Header />
       <ScrollView>
         <Text style={styles.Saldo}>{`Saldo Total: R$${formattedTotalBalance}`}</Text>
+        <View style={styles.ContainerRD}>
+          <Ionicons name="arrow-up-circle" size={40} color="#32CD32"/>
+          <View style={styles.ContainerReceita}> 
+            <Text style={styles.Receitas}>Receitas</Text>
+            <Text style={styles.ValorReceitas}>R$ 1.084,80</Text>
+          </View>
+          <Ionicons name="arrow-down-circle" size={40} color="red"/>
+          <View style={styles.ContainerDespesa}>
+            <Text style={styles.Despesas}>Despesas</Text>
+            <Text style={styles.ValorDespesas}>R$ 0,00</Text>
+          </View>
+        </View>
         <VictoryPie
           data={pieData}
           colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
@@ -107,16 +120,55 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 
+  ContainerRD: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 42,
+  },
+
+  // ContainerReceita: {
+    
+  // },
+  
+  Receitas: {
+    color: '#fff',
+    fontSize: 15,
+    marginLeft: 8,
+  },
+
+  ValorReceitas: {
+    color: '#32CD32',
+    fontSize: 23,
+    marginLeft: 8,
+    marginRight: 30,
+  },
+
+  // ContainerDespesa: {
+
+  // },
+
+  Despesas: {
+    color: '#fff',
+    fontSize: 15,
+    marginLeft: 8,
+  },
+
+  ValorDespesas: {
+    color: 'red',
+    fontSize: 23,
+    marginLeft: 8,
+  },
+  
   Contas: {
     color: '#FECE00',
     fontSize: 25,
     fontWeight: 'bold',
     alignSelf: 'center',
-    marginTop: 30,
+    marginTop: 15,
   },
 
   ContainerContas: {
-    marginTop: 25,
+    marginTop: 20,
     flexDirection: 'column',
     marginBottom: 150,
   },
