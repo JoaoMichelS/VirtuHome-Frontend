@@ -43,7 +43,7 @@ export default function Home({ navigation, route}) {
   useEffect( () => {
     const unsubscribe = navigation.addListener('focus', () => {
       async function getAccounts() {
-          await axios.get(`http://192.168.2.103:3000/account/user/${route.params.userId}`)
+          await axios.get(`http://${API_IP}:3000/account/user/${route.params.userId}`)
           .then(function (response) {
               if (response.status == 200){
                 setUserAccounts(response.data);

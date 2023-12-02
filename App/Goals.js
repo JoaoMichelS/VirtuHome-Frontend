@@ -1,12 +1,49 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import Header from './Header.js';
-import { API_IP } from './config';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, ScrollView } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import { SelectList } from 'react-native-dropdown-select-list';
+import Header from './Header';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import axios from 'axios';
+import { API_IP } from './config'
 
-export default function Goals({ navigation }) {
+export default function Goals({ navigation, route}) {
+
+  const [userGoals, setUserGoals] = useState([]);
 
   const NewGoal = () => {
-    navigation.navigate('NewGoal')
+    navigation.navigate('NewGoal', { userId: route.params.userId })
+  };
+
+  useEffect( () => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      async function getGoals() {
+          await axios.get(`http://${API_IP}:3000/goal/user/${route.params.userId}`)
+          .then(function (response) {
+              if (response.status == 200){
+                setUserGoals(response.data);
+              }
+          })
+          .catch(function (err){
+              console.log("Error")
+          })
+    }
+    getGoals();
+
+    if (route.params?.goalCreated) {
+      // Se uma nova transação foi criada, atualize a lista
+      getGoals();
+    }
+  });
+  return unsubscribe;
+  }, [navigation, route.params?.goalCreated]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
   };
 
   return (
@@ -14,10 +51,20 @@ export default function Goals({ navigation }) {
       <Header />
       <Text style={styles.title}>Metas</Text>
       <View style={styles.ContainerContent}>
-        <ScrollView>
-          <Text style={styles.ContainerGoal}>
-            <Text style={styles.Goal}></Text>
-          </Text>
+          <ScrollView>
+            {userGoals?.map((goal, i) => {
+              const formattedDate1 = formatDate(goal.startDate); // Chamando a função para formatar a data
+              const formattedDate2 = formatDate(goal.endDate); // Chamando a função para formatar a data
+                return (
+                <TouchableOpacity key={i} style={styles.ContainerChamado}>
+                    <Text style={styles.Departamento}>{goal.description}</Text>
+                    <Text style={styles.Assunto}>Renda Mensal: R${goal.monthlyIncome}</Text>
+                    <Text style={styles.Assunto}>Meta: R${goal.targetValue}</Text>
+                    <Text style={styles.Data}>Início: {formattedDate1}</Text> 
+                    <Text style={styles.Data}>Fim: {formattedDate2}</Text> 
+                </TouchableOpacity>    
+                );
+              })}
         </ScrollView>
       </View>
       <View style={styles.ButtonContainer}>
@@ -87,6 +134,42 @@ Add: {
   alignSelf: 'center',
   fontWeight: "bold",
   fontSize: 18,
+},
+Departamento: {
+  color: "#000000",
+  fontSize: 20,
+  fontWeight: 'bold',
+  marginLeft: 10,
+},
+
+Assunto: {
+    color: "#000000",
+    fontSize: 17,
+    marginTop: 10,
+    marginLeft: 10,
+},
+
+Data: {
+    fontSize: 12,
+    textAlign: 'right',
+    marginRight: '5%',
+    bottom : 90,
+    padding: -50,
+},
+
+ContainerChamado: {
+  marginTop: 40,
+  backgroundColor: '#FDF6BA',
+  paddingTop: 15,
+  paddingBottom: 20,
+  borderColor: '#FDF6BA', 
+  borderRadius: 12,
+  width: 380,
+  alignSelf: 'center',
+},
+
+ContainerContent: {
+  flex: 1.15,
 },
 
 });

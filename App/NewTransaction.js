@@ -34,7 +34,7 @@ export default function NewTransaction({ navigation, route }) {
     getAccounts()
   }, []);
   
-  const data2 = [
+  const categoriesExpense = [
       {key:'1', value:'Moradia'},
       {key:'2', value:'Alimentação'},
       {key:'3', value:'Transporte'},
@@ -43,6 +43,14 @@ export default function NewTransaction({ navigation, route }) {
       {key:'6', value:'Lazer'},
       {key:'7', value:'Outros'},
   ]
+
+  const categoriesIncome = [
+    {key:'1', value:'Salário'},
+    {key:'2', value:'Presente'},
+    {key:'3', value:'Prêmio'},
+    {key:'4', value:'Investimento'},
+    {key:'5', value:'Outros'},
+]
 
   const [account, setAccount] =  useState('');
   const [category, setCategory] =  useState('');
@@ -123,8 +131,8 @@ export default function NewTransaction({ navigation, route }) {
               ))}
             </Picker>
             <SelectList
-              setSelected={(val) => setSelected2(val)} 
-              data={data2} 
+              setSelected={(val) => setSelected2(val)}
+              data={selectedButton === 'income' ? categoriesIncome : categoriesExpense} 
               save="value"
               search={false}
               placeholder='Categoria'
@@ -132,8 +140,6 @@ export default function NewTransaction({ navigation, route }) {
               dropdownTextStyles={{color:"#FECE00"}}
               dropdownStyles={{borderColor:"#FECE00", marginLeft:40, marginRight:40, borderRadius:5}}
               boxStyles={{borderColor:"#FECE00", marginLeft:40, marginRight:40, marginTop:25, borderRadius:5, height:50,}}
-              // onSelect={(val) => setAccount(val)}
-              // value={account}
             />
             <DateTimePicker
               testID="dateTimePicker"

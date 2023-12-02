@@ -26,10 +26,8 @@ export default function Transactions({ navigation, route}) {
               const transactionsWithAccountNames = await Promise.all(transactions.map(async (transaction) => {
                 const accountResponse = await axios.get(`http://${API_IP}:3000/account/${transaction.accountId}`);
                 const accountName = accountResponse.data.name; 
-                console.log(accountName);
                 return { ...transaction, accountName };
               }));
-              console.log(transactionsWithAccountNames);
               setUserTransactions(transactionsWithAccountNames);
             }
           })
