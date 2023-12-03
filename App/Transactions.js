@@ -17,15 +17,23 @@ export default function Transactions({ navigation, route}) {
     navigation.navigate('NewAccount', { userId: route.params.userId })
   };
  
+  const EditTransaction = (id) => {
+    navigation.navigate('EditTransaction', { transactionId: id })
+  };
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       async function getTransactions() {
+        console.log(route.params.userId);
         await axios.get(`http://${API_IP}:3000/transaction/user/${route.params.userId}`)
           .then(async function (response) {
             if (response.status == 200) {
               const transactions = response.data;
+              console.log(transactions);
               const transactionsWithAccountNames = await Promise.all(transactions.map(async (transaction) => {
+                console.log(transaction.accountId);
                 const accountResponse = await axios.get(`http://${API_IP}:3000/account/${transaction.accountId}`);
+                console.log("response:", accountResponse.data);
                 const accountName = accountResponse.data.name; 
                 return { ...transaction, accountName };
               }));
@@ -33,7 +41,7 @@ export default function Transactions({ navigation, route}) {
             }
           })
           .catch(function (err) {
-            console.log("Error")
+            console.log("Error here")
           })
       }
       getTransactions();
@@ -52,10 +60,6 @@ export default function Transactions({ navigation, route}) {
     const year = date.getFullYear();
     return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
   };
-
-  const EditTransaction = () => {
-    navigation.navigate('EditTransaction')
-  };
   
   return (
     <View style={styles.container}>
@@ -66,7 +70,7 @@ export default function Transactions({ navigation, route}) {
         {userTransactions?.map((transaction, i) => {
           const formattedDate = formatDate(transaction.date); // Chamando a função para formatar a data
             return (
-            <TouchableOpacity key={i} style={styles.ContainerChamado} onPress={EditTransaction}>
+            <TouchableOpacity key={i} style={styles.ContainerChamado} onPress={() => EditTransaction(transaction.id)}>
                 <Text style={styles.Departamento}>
                   {transaction.type === 'expense' ? 'Despesa' : transaction.type === 'income' ? 'Receita' : 'Outro'}
                 </Text>

@@ -127,7 +127,6 @@ export default function NewTransaction({ navigation, route }) {
               >
                 {accounts.map((account) => (
                 <Picker.Item key={account.userId} label={account.name} value={account.accountId} />
-                // Substitua 'id' e 'nome' pelas chaves correspondentes aos dados de cada conta
               ))}
             </Picker>
             <SelectList
