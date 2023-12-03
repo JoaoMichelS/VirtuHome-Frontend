@@ -15,6 +15,10 @@ export default function Goals({ navigation, route}) {
     navigation.navigate('NewGoal', { userId: route.params.userId })
   };
 
+  const EditGoal = (id) => {
+    navigation.navigate('EditGoal', { goalId: id })
+  };
+
   useEffect( () => {
     const unsubscribe = navigation.addListener('focus', () => {
       async function getGoals() {
@@ -56,7 +60,7 @@ export default function Goals({ navigation, route}) {
               const formattedDate1 = formatDate(goal.startDate); // Chamando a função para formatar a data
               const formattedDate2 = formatDate(goal.endDate); // Chamando a função para formatar a data
                 return (
-                <TouchableOpacity key={i} style={styles.ContainerChamado}>
+                <TouchableOpacity key={i} style={styles.ContainerChamado} onPress={() => EditGoal(goal.id)}>
                     <Text style={styles.Departamento}>{goal.description}</Text>
                     <Text style={styles.Assunto}>Renda Mensal: R${goal.monthlyIncome}</Text>
                     <Text style={styles.Assunto}>Meta: R${goal.targetValue}</Text>
