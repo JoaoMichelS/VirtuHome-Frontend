@@ -78,6 +78,7 @@ export default function EditGoal({ navigation, route}) {
             spendingCategories: spendingCategories,
         });
     console.log(response);
+    alert("Meta atualizada!");
     navigation.navigate('Main', {userId: route.params.userId}, { transactionCreated: true });
     
         } catch (error) {
@@ -86,6 +87,18 @@ export default function EditGoal({ navigation, route}) {
         // Lógica adicional para lidar com o erro
         }
     };
+
+    const handleDelete = async () => {
+        try {
+            const response = await axios.delete(`http://${API_IP}:3000/goal/delete/${route.params.goalId}`);
+            console.log(response);
+            alert("Meta excluída!");
+            navigation.navigate('Main', { userId: route.params.userId, transactionCreated: true });
+          } catch (error) {
+            console.error(error);
+            alert('Erro ao fazer a requisição DELETE: ' + error.message);
+          }
+        };
 
     return(
         <View style={styles.container}>
@@ -165,7 +178,7 @@ export default function EditGoal({ navigation, route}) {
                 </View>
             </ScrollView>
             <View style={styles.ButtonContainer}>
-                <TouchableOpacity style={styles.Button} >
+                <TouchableOpacity style={styles.Button} onPress={handleDelete}>
                     <Text style={styles.Add}>Apagar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.Button2} onPress={handleSubmit}>

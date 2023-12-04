@@ -61,6 +61,7 @@ export default function NewGoal({ navigation, route }) {
         spendingCategories: spendingCategories,
       });
       console.log(response);
+      alert("Meta criada!");
       navigation.navigate('Main', {userId: route.params.userId}, { goalCreated: true });
   
     } catch (error) {

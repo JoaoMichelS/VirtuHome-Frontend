@@ -81,6 +81,7 @@ export default function NewTransaction({ navigation, route }) {
         amount: valor
       });
       console.log(response);
+      alert("Transação criada!");
       navigation.navigate('Main', {userId: route.params.userId}, { transactionCreated: true });
   
     } catch (error) {

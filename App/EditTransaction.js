@@ -76,6 +76,7 @@ export default function EditTransaction({ navigation, route}) {
                 amount: amount
             });
         console.log(response);
+        alert("Transação atualizada!");
         navigation.navigate('Main', {userId: route.params.userId}, { transactionCreated: true });
     
         } catch (error) {
@@ -92,6 +93,7 @@ export default function EditTransaction({ navigation, route}) {
           navigation.navigate('Main', { userId: route.params.userId, transactionCreated: true });
         } catch (error) {
           console.error(error);
+          alert("Transação excluída!");
           alert('Erro ao fazer a requisição DELETE: ' + error.message);
         }
       };
