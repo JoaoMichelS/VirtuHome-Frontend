@@ -77,7 +77,7 @@ export default function EditTransaction({ navigation, route}) {
             });
         console.log(response);
         alert("Transação atualizada!");
-        navigation.navigate('Main', {userId: route.params.userId}, { transactionCreated: true });
+        navigation.navigate('Main', { userId: route.params.userId, transactionCreated: true });
     
         } catch (error) {
         console.error(error);

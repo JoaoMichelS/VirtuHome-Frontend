@@ -1,37 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { VictoryPie } from 'victory-native';
+import { VictoryPie, VictoryLabel } from 'victory-native';
 import Header from './Header';
 import axios from 'axios';
 import { API_IP } from './config';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Home({ navigation, route}) {
 
   const [userAccounts, setUserAccounts] = useState([]);
-
-  useEffect( () => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      async function getUserAccounts() {
-          await axios.get(`http://${API_IP}:3000/account/user/${route.params.userId}`)
-          .then(function (response) {
-              if (response.status == 200){
-                setUserAccounts(response.data);
-              }
-          }) 
-          .catch(function (err){
-              console.log("Error")
-          })
-    }
-    getUserAccounts();
-
-    if (route.params?.transactionCreated) {
-      // Se uma nova transação foi criada, atualize a lista
-      getUserAccounts();
-    }
-  });
-  return unsubscribe;
-  }, [navigation, route.params?.transactionCreated]);
+  const [userTransactions, setUserTransactions] = useState([]);
+  const [totalIncome, setTotalIncome] = useState();
+  const [totalExpense, setTotalExpense] = useState();
+  const [expenseData, setExpenseData] = useState([]);
+  const [incomeData, setIncomeData] = useState([]);
 
   const totalBalance = userAccounts.reduce((accumulator, account) => accumulator + parseFloat(account.balance), 0);
   const formattedTotalBalance = totalBalance.toFixed(2);
@@ -41,28 +24,89 @@ export default function Home({ navigation, route}) {
     y: parseFloat(account.balance), 
   }));
 
-  useEffect( () => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      async function getAccounts() {
-          await axios.get(`http://${API_IP}:3000/account/user/${route.params.userId}`)
-          .then(function (response) {
-              if (response.status == 200){
-                setUserAccounts(response.data);
-              }
-          })
-          .catch(function (err){
-              console.log("Error")
-          })
-    }
-    getAccounts();
+  const processData = () => {
+    const expenseCategories = {};
+    const incomeCategories = {};
 
-    if (route.params?.transactionCreated) {
-      // Se uma nova transação foi criada, atualize a lista
-      getAccounts();
+    userTransactions.forEach(transaction => {
+      if (transaction.type === 'expense') {
+        if (!expenseCategories[transaction.category]) {
+          expenseCategories[transaction.category] = parseFloat(transaction.amount);
+        } else {
+          expenseCategories[transaction.category] += parseFloat(transaction.amount);
+        }
+      } else if (transaction.type === 'income') {
+        if (!incomeCategories[transaction.category]) {
+          incomeCategories[transaction.category] = parseFloat(transaction.amount);
+        } else {
+          incomeCategories[transaction.category] += parseFloat(transaction.amount);
+        }
+      }
+    });
+
+    const expenseChartData = Object.keys(expenseCategories).map(category => ({
+      x: category,
+      y: expenseCategories[category],
+    }));
+    setExpenseData(expenseChartData);
+    
+
+    const incomeChartData = Object.keys(incomeCategories).map(category => ({
+      x: category,
+      y: incomeCategories[category],
+    }));
+    setIncomeData(incomeChartData);
+  };
+
+  // Defina uma função separada para carregar os dados
+const loadUserData = async () => {
+  try {
+    const accountsResponse = await axios.get(`http://${API_IP}:3000/account/user/${route.params.userId}`);
+    const transactionsResponse = await axios.get(`http://${API_IP}:3000/transaction/user/${route.params.userId}`);
+
+    if (accountsResponse.status === 200) {
+      setUserAccounts(accountsResponse.data);
     }
-  });
-  return unsubscribe;
-  }, [navigation, route.params?.transactionCreated]);
+
+    if (transactionsResponse.status === 200) {
+      setUserTransactions(transactionsResponse.data);
+
+      let totalReceitas = 0;
+      let totalDespesas = 0;
+
+      transactionsResponse.data.forEach(transaction => {
+        if (transaction.type === 'income') {
+          totalReceitas += parseFloat(transaction.amount);
+        } else if (transaction.type === 'expense') {
+          totalDespesas += parseFloat(transaction.amount);
+        }
+      });
+
+      setTotalIncome(totalReceitas.toFixed(2));
+      setTotalExpense(totalDespesas.toFixed(2));
+    }
+  } catch (error) {
+    console.log('Error loading user data:', error);
+    // Lógica adicional para lidar com o erro
+  }
+};
+
+useFocusEffect(
+  React.useCallback(() => {
+    loadUserData();
+    processData();
+  }, [])
+);
+
+// Na tela Main, use useEffect para chamar loadUserData ao carregar a tela
+useEffect(() => {
+  loadUserData();
+  processData();
+  if (route.params?.transactionCreated){
+    loadUserData();
+    processData();
+  }
+}, [navigation, route.params?.transactionCreated]);
 
   return (
     <View style={styles.container}>
@@ -70,24 +114,44 @@ export default function Home({ navigation, route}) {
       <ScrollView>
         <Text style={styles.Saldo}>{`Saldo Total: R$${formattedTotalBalance}`}</Text>
         <View style={styles.ContainerRD}>
+        </View>
+        <View style={styles.chartContainer}>
+        <View style={styles.chart}>
           <Ionicons name="arrow-up-circle" size={40} color="#32CD32"/>
           <View style={styles.ContainerReceita}> 
             <Text style={styles.Receitas}>Receitas</Text>
-            <Text style={styles.ValorReceitas}>R$ 1.084,80</Text>
+            <Text style={styles.ValorReceitas}>R${totalIncome}</Text>
           </View>
+          <VictoryPie
+            data={incomeData} 
+            colorScale={['#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
+            labels={({ datum }) => `${datum.x}`} // Formato do label
+            labelRadius={5}
+            labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
+            width={200} // Largura do gráfico de despesas
+            height={200} // Altura do gráfico de despesas
+            labelComponent={<VictoryLabel style={{ fontSize: 12 }} />}
+          />
+        </View>
+
+        <View style={styles.chart}>
           <Ionicons name="arrow-down-circle" size={40} color="red"/>
           <View style={styles.ContainerDespesa}>
             <Text style={styles.Despesas}>Despesas</Text>
-            <Text style={styles.ValorDespesas}>R$ 0,00</Text>
+            <Text style={styles.ValorDespesas}>R${totalExpense}</Text>
           </View>
+          <VictoryPie
+            data={expenseData}
+            colorScale={['#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
+            labels={({ datum }) => `${datum.x}`} // Formato do label
+            labelRadius={5}
+            labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
+            width={200} // Largura do gráfico de despesas
+            height={200} // Altura do gráfico de despesas
+            labelComponent={<VictoryLabel style={{ fontSize: 12 }} />}
+          />
         </View>
-        <VictoryPie
-          data={pieData}
-          colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
-          labels={({ datum }) => `${datum.x}: R$${datum.y}`} // Formato do label
-          labelRadius={50}
-          labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
-        />
+      </View>
         <Text style={styles.Contas}>Contas</Text>
         <View style={styles.ContainerContas}>
         {/* <ScrollView> */}
@@ -99,6 +163,13 @@ export default function Home({ navigation, route}) {
             </TouchableOpacity>    
             );
           })}
+        <VictoryPie
+          data={pieData}
+          colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
+          labels={({ datum }) => `${datum.x}: R$${datum.y}`} // Formato do label
+          labelRadius={50}
+          labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
+        />
         {/* </ScrollView> */}
         </View>
       </ScrollView>
@@ -110,6 +181,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#252B3B',
+  },
+
+  chartContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 20,
+  },
+
+  chart: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor:'#ccc',
+    borderRadius: 10, 
+    padding: 10,
   },
 
   Saldo: {

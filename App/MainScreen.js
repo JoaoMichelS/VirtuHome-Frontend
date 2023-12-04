@@ -25,7 +25,7 @@ function MainScreen ({ navigation, route }) {
                     height: 85,
                 }
             }}>
-            <Tab.Screen name="Home" component={Home} initialParams={{ userId: route.params.userId }}
+            <Tab.Screen name="Home" component={Home} initialParams={{ userId: route.params.userId, transactionCreated: true }}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size, focused }) => {

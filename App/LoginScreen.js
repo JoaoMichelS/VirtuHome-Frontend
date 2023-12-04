@@ -18,7 +18,7 @@ function LoginScreen({ navigation }) {
         password: password
       });
       console.log(response);
-      navigation.navigate('Main', { userId: response.data.id } );
+      navigation.navigate('Main', { userId: response.data.id }, { transactionCreated: true });
   
     } catch (error) {
       console.error(error);
