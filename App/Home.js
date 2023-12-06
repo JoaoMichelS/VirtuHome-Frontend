@@ -133,14 +133,7 @@ useEffect(() => {
       </View>
         <Text style={styles.Contas}>Contas</Text>
         <View style={styles.ContainerContas}>
-        <VictoryPie
-          data={pieData}
-          colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
-          labels={({ datum }) => `${datum.x}: R$${datum.y}`} // Formato do label
-          labelRadius={40}
-          labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
-        />
-          {userAccounts?.map((account, i) => {
+        {userAccounts?.map((account, i) => {
             return (
             <View key={i} style={styles.ContainerChamado}>
                 <Text style={styles.Departamento}>{account.name}</Text>
@@ -153,6 +146,13 @@ useEffect(() => {
             </View>    
             );
           })}
+        <VictoryPie
+          data={pieData}
+          colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
+          labels={({ datum }) => `${datum.x}: R$${datum.y}`} // Formato do label
+          labelRadius={40}
+          labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
+        />
         </View>
       </ScrollView>
     </View>

@@ -26,6 +26,9 @@ export default function NewTransaction({ navigation, route }) {
         .then(function (response) {
             if (response.status == 200){
                 setAccounts(response.data);
+                if (response.data.length === 1) {
+                  setSelectedAccount(response.data[0].accountId);
+                }
             }
         })
         .catch(function (err){
