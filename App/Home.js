@@ -24,7 +24,7 @@ export default function Home({ navigation, route}) {
     y: parseFloat(account.balance), 
   }));
 
-  const processData = () => {
+  const processData = async () => {
     const expenseCategories = {};
     const incomeCategories = {};
 
@@ -100,11 +100,45 @@ useFocusEffect(
 
 // Na tela Main, use useEffect para chamar loadUserData ao carregar a tela
 useEffect(() => {
-  loadUserData();
-  processData();
-  if (route.params?.transactionCreated){
-    loadUserData();
-    processData();
+  const fetchData = async () => {
+    try {
+      const accountsResponse = await axios.get(`http://${API_IP}:3000/account/user/${route.params.userId}`);
+      const transactionsResponse = await axios.get(`http://${API_IP}:3000/transaction/user/${route.params.userId}`);
+
+      if (accountsResponse.status === 200) {
+        setUserAccounts(accountsResponse.data);
+      }
+
+      if (transactionsResponse.status === 200) {
+        setUserTransactions(transactionsResponse.data);
+
+        let totalReceitas = 0;
+        let totalDespesas = 0;
+
+        transactionsResponse.data.forEach(transaction => {
+          if (transaction.type === 'income') {
+            totalReceitas += parseFloat(transaction.amount);
+          } else if (transaction.type === 'expense') {
+            totalDespesas += parseFloat(transaction.amount);
+          }
+        });
+
+        setTotalIncome(totalReceitas.toFixed(2));
+        setTotalExpense(totalDespesas.toFixed(2));
+        
+        // Chama a função processData após setUserTransactions para atualizar os dados do gráfico
+        processData();
+      }
+    } catch (error) {
+      console.log('Error loading user data:', error);
+      // Lógica adicional para lidar com o erro
+    }
+  };
+
+  fetchData();
+
+  if (route.params?.transactionCreated) {
+    fetchData();
   }
 }, [navigation, route.params?.transactionCreated]);
 
@@ -125,12 +159,12 @@ useEffect(() => {
           <VictoryPie
             data={incomeData} 
             colorScale={['#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
-            labels={({ datum }) => `${datum.x}`} // Formato do label
-            labelRadius={5}
-            labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
-            width={200} // Largura do gráfico de despesas
-            height={200} // Altura do gráfico de despesas
             labelComponent={<VictoryLabel style={{ fontSize: 12 }} />}
+            labels={({ datum }) => `${datum.x}`} // Formato do label
+            labelRadius={10}
+            labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
+            width={250} // Largura do gráfico de despesas
+            height={250} // Altura do gráfico de despesas
           />
         </View>
 
@@ -143,12 +177,13 @@ useEffect(() => {
           <VictoryPie
             data={expenseData}
             colorScale={['#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
-            labels={({ datum }) => `${datum.x}`} // Formato do label
-            labelRadius={5}
-            labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
-            width={200} // Largura do gráfico de despesas
-            height={200} // Altura do gráfico de despesas
             labelComponent={<VictoryLabel style={{ fontSize: 12 }} />}
+            labels={({ datum }) => `${datum.x}`} // Formato do label
+            labelRadius={10}
+            labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
+            width={250} // Largura do gráfico de despesas
+            height={250} // Altura do gráfico de despesas
+
           />
         </View>
       </View>

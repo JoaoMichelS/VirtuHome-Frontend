@@ -7,11 +7,11 @@ import { API_IP } from './config';
 
 function ForgotPasswordScreen  ({ navigation }) {
     const [email, setEmail] = useState('');
-    const [oldPassword, setOldPassword] = useState('');
+    const [cpf, setCpf] = useState('');
     const [newPassword, setNewPassword] = useState('');
 
     const ForgotPassword = () => {
-      axios.post(`http://${API_IP}:3000/user/login`, {email: email, password: oldPassword}).
+      axios.post(`http://${API_IP}:3000/user/login`, {email: email, cpf: cpf}).
       then(function (response){
         if (response.status == 200){
           const id = response.data.id;
@@ -36,7 +36,6 @@ function ForgotPasswordScreen  ({ navigation }) {
     return (
         <View style={styles.container}>
             <Text style={styles.ForgotPassword}>Recuperar senha</Text>
-            <Text style={styles.text}>Digite seu email para envio do link de recuperação:</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -46,11 +45,10 @@ function ForgotPasswordScreen  ({ navigation }) {
             />
             <TextInput
                 style={styles.input}
-                placeholder="Senha"
+                placeholder="Cpf"
                 placeholderTextColor={"#FECE00"}
-                secureTextEntry
-                onChangeText={(text) => setOldPassword(text)}
-                value={oldPassword}
+                onChangeText={(text) => setCpf(text)}
+                value={cpf}
             />
             <TextInput
                 style={styles.input}

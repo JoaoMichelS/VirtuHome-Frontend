@@ -1,33 +1,84 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Header from './Header';
-import { VictoryChart, VictoryGroup, VictoryBar, VictoryLabel, VictoryTheme } from 'victory-native';
-import { API_IP } from './config';
+import { VictoryChart, VictoryGroup, VictoryBar, VictoryAxis } from 'victory-native';
 
-export default function Historic() { 
+export default function Historic() {
+  const [transactionsJanuary, setTransactionsJanuary] = useState([]);
+  const [transactionsFebruary, setTransactionsFebruary] = useState([]);
+  const [transactionsMarch, setTransactionsMarch] = useState([]);
+  const [transactionsApril, setTransactionsApril] = useState([]);
+  const [transactionsMay, setTransactionsMay] = useState([]);
+  const [transactionsJune, setTransactionsJune] = useState([]);
+  const [transactionsJuly, setTransactionsJuly] = useState([]);
+  const [transactionsAugust, setTransactionsAugust] = useState([]);
+  const [transactionsSeptember, setTransactionsSeptember] = useState([]);
+  const [transactionsOctober, setTransactionsOctober] = useState([]);
+  const [transactionsNovember, setTransactionsNovember] = useState([]);
+  const [transactionsDecember, setTransactionsDecember] = useState([]);
+
+  // Dados de exemplo para o histórico
+  const data = [
+    { month: 'Setembro', receita: 100, despesa: 80 },
+    { month: 'Outubro', receita: 120, despesa: 90 },
+    { month: 'Novembro', receita: 150, despesa: 110 },
+  ];
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      async function getTransactionsByDaterange() {
+        console.log(route.params.userId);
+        await axios.get(`http://${API_IP}:3000/transaction/user/${route.params.userId}`)
+          .then(async function (response) {
+            if (response.status == 200) {
+              const transactions = response.data;
+              console.log(transactions);
+              const transactionsWithAccountNames = await Promise.all(transactions.map(async (transaction) => {
+                console.log(transaction.accountId);
+                const accountResponse = await axios.get(`http://${API_IP}:3000/account/${transaction.accountId}`);
+                console.log("response:", accountResponse.data);
+                const accountName = accountResponse.data.name; 
+                return { ...transaction, accountName };
+              }));
+              setUserTransactions(transactionsWithAccountNames);
+            }
+          })
+          .catch(function (err) {
+            console.log("Error here")
+          })
+      }
+      getTransactionsByDaterange();
+  
+      if (route.params?.transactionCreated) {
+        getTransactionsByDaterange();
+      }
+    });
+    return unsubscribe;
+  }, [navigation, route.params?.transactionCreated]);
 
   return (
     <View style={styles.container}>
       <Header />
       <Text style={styles.title}>Histórico</Text>
       <View style={styles.ContainerGrafico}>
-      <VictoryChart domain={{ x: [0.5, 3.5], y: [0, 7.5] }} theme={VictoryTheme.Grafico}>
-        <VictoryGroup offset={12} colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC']} 
-                      labels={["Setembro", "Outubro", "Novembro"]} 
-                      labelComponent={
-                        <VictoryLabel
-                          style={[
-                            { fill: "black" }
-                          ]}/>}
-        >
-          <VictoryBar data={[{ x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 4 }]} />
-          <VictoryBar data={[{ x: 1, y: 2 }, { x: 2, y: 1 }, { x: 3, y: 5 }]} />
-          <VictoryBar data={[{ x: 1, y: 3 }, { x: 2, y: 4 }, { x: 3, y: 6 }]} />
-          <VictoryBar data={[{ x: 1, y: 3 }, { x: 2, y: 4 }, { x: 3, y: 7 }]} />
-          <VictoryBar data={[{ x: 1, y: 3 }, { x: 2, y: 4 }, { x: 3, y: 7 }]} />
-          <VictoryBar data={[{ x: 1, y: 3 }, { x: 2, y: 4 }, { x: 3, y: 7 }]} />
-        </VictoryGroup>
-      </VictoryChart>
+        <VictoryChart domainPadding={{ x: 30 }} theme={{ width: 600 }}>
+          <VictoryGroup offset={10}>
+            <VictoryBar
+              data={data}
+              x="month"
+              y="receita"
+              style={{ data: { fill: 'green' } }}
+            />
+            <VictoryBar
+              data={data}
+              x="month"
+              y="despesa"
+              style={{ data: { fill: 'red' } }}
+            />
+          </VictoryGroup>
+          <VictoryAxis tickValues={data.map(item => item.month)} />
+          <VictoryAxis dependentAxis />
+        </VictoryChart>
       </View>
     </View>
   );
@@ -38,7 +89,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#252B3B',
   },
-
   title: {
     color: '#FECE00',
     fontSize: 30,
@@ -47,13 +97,11 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     marginBottom: 60,
   },
-
   ContainerGrafico: {
-    //flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     marginBottom: 30,
     marginLeft: 15,
     marginRight: 15,
     borderRadius: 12,
-  }
+  },
 });

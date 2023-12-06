@@ -15,7 +15,7 @@ function LoginScreen({ navigation }) {
     try {
       const response = await axios.post(`http://${API_IP}:3000/user/login`, {
         email: email,
-        password: password
+        password: password,
       });
       console.log(response);
       navigation.navigate('Main', { userId: response.data.id }, { transactionCreated: true });
