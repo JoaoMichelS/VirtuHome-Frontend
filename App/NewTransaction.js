@@ -6,6 +6,7 @@ import Header from './Header';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
 import { API_IP } from './config';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 export default function NewTransaction({ navigation, route }) { 
 
@@ -145,11 +146,12 @@ export default function NewTransaction({ navigation, route }) {
               testID="dateTimePicker"
               value={date}
               mode="date"
-              display="default"
+              display="spinner"
               onChange={onChange}
               placeholderText='Data'
               placeholderTextColor= '#FECE00'
               style={styles.dateTimePicker}
+              textColor='#FECE00'
             />
             <TextInput style={styles.input}
               placeholder="Descrição"
@@ -259,9 +261,8 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       marginTop: 25,
       height: 47,
-      //width: 125,
+      width: 275,
       alignSelf: 'center', 
-      backgroundColor: '#252B3B',
     },
 
     input: {

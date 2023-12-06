@@ -13,8 +13,6 @@ export default function Home({ navigation, route}) {
   const [userTransactions, setUserTransactions] = useState([]);
   const [totalIncome, setTotalIncome] = useState();
   const [totalExpense, setTotalExpense] = useState();
-  const [expenseData, setExpenseData] = useState([]);
-  const [incomeData, setIncomeData] = useState([]);
 
   const totalBalance = userAccounts.reduce((accumulator, account) => accumulator + parseFloat(account.balance), 0);
   const formattedTotalBalance = totalBalance.toFixed(2);
@@ -44,18 +42,6 @@ export default function Home({ navigation, route}) {
       }
     });
 
-    const expenseChartData = Object.keys(expenseCategories).map(category => ({
-      x: category,
-      y: expenseCategories[category],
-    }));
-    setExpenseData(expenseChartData);
-    
-
-    const incomeChartData = Object.keys(incomeCategories).map(category => ({
-      x: category,
-      y: incomeCategories[category],
-    }));
-    setIncomeData(incomeChartData);
   };
 
   // Defina uma função separada para carregar os dados
@@ -108,6 +94,20 @@ useEffect(() => {
   }
 }, [navigation, route.params?.transactionCreated]);
 
+ const handleDelete = async () => {
+  // try {
+  //   const response = await axios.delete(`http://${API_IP}:3000/transaction/delete/${route.params.transactionId}`);
+  //   console.log(response);
+  //   navigation.navigate('Main', { userId: route.params.userId, transactionCreated: true });
+  // } catch (error) {
+  //   console.error(error);
+  //   alert("Conta excluída!");
+  //   alert('Erro ao fazer a requisição DELETE: ' + error.message);
+  // }
+ };
+
+ const [visible, setVisible] = useState(true);
+
   return (
     <View style={styles.container}>
       <Header />
@@ -116,61 +116,43 @@ useEffect(() => {
         <View style={styles.ContainerRD}>
         </View>
         <View style={styles.chartContainer}>
-        <View style={styles.chart}>
+        <View style={styles.GeralDespesas}>
           <Ionicons name="arrow-up-circle" size={40} color="#32CD32"/>
           <View style={styles.ContainerReceita}> 
             <Text style={styles.Receitas}>Receitas</Text>
             <Text style={styles.ValorReceitas}>R${totalIncome}</Text>
           </View>
-          <VictoryPie
-            data={incomeData} 
-            colorScale={['#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
-            labels={({ datum }) => `${datum.x}`} // Formato do label
-            labelRadius={5}
-            labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
-            width={200} // Largura do gráfico de despesas
-            height={200} // Altura do gráfico de despesas
-            labelComponent={<VictoryLabel style={{ fontSize: 12 }} />}
-          />
         </View>
-
-        <View style={styles.chart}>
+          <View style={styles.GeralDespesas}>
           <Ionicons name="arrow-down-circle" size={40} color="red"/>
           <View style={styles.ContainerDespesa}>
             <Text style={styles.Despesas}>Despesas</Text>
             <Text style={styles.ValorDespesas}>R${totalExpense}</Text>
           </View>
-          <VictoryPie
-            data={expenseData}
-            colorScale={['#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
-            labels={({ datum }) => `${datum.x}`} // Formato do label
-            labelRadius={5}
-            labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
-            width={200} // Largura do gráfico de despesas
-            height={200} // Altura do gráfico de despesas
-            labelComponent={<VictoryLabel style={{ fontSize: 12 }} />}
-          />
-        </View>
+          </View>
       </View>
         <Text style={styles.Contas}>Contas</Text>
         <View style={styles.ContainerContas}>
-        {/* <ScrollView> */}
-          {userAccounts?.map((account, i) => {
-            return (
-            <TouchableOpacity key={i} style={styles.ContainerChamado}>
-                <Text style={styles.Departamento}>{account.name}</Text>
-                <Text style={styles.Assunto}>R${account.balance}</Text>
-            </TouchableOpacity>    
-            );
-          })}
         <VictoryPie
           data={pieData}
           colorScale={['yellow', '#DC143C', '#1E90FF', '#00FF7F', '#FFA500', '#9932CC', '#FF69B4']}
           labels={({ datum }) => `${datum.x}: R$${datum.y}`} // Formato do label
-          labelRadius={50}
+          labelRadius={40}
           labelPlacement={({ index }) => (index ? 'parallel' : 'parallel')}
         />
-        {/* </ScrollView> */}
+          {userAccounts?.map((account, i) => {
+            return (
+            <View key={i} style={styles.ContainerChamado}>
+                <Text style={styles.Departamento}>{account.name}</Text>
+                <Text style={styles.Assunto}>R${account.balance}</Text>
+                <View style={styles.Apagar}>
+                  <TouchableOpacity onPress={handleDelete}>
+                    <Ionicons name="trash-outline" size={26}/>
+                  </TouchableOpacity>
+                </View>
+            </View>    
+            );
+          })}
         </View>
       </ScrollView>
     </View>
@@ -213,45 +195,47 @@ const styles = StyleSheet.create({
     marginTop: 42,
   },
 
-  // ContainerReceita: {
-    
-  // },
+  GeralReceitas: {
+    flexDirection:'row',
+    justifyContent: 'center',
+  },
   
   Receitas: {
     color: '#fff',
     fontSize: 15,
-    marginLeft: 8,
+    marginLeft: 5,
   },
 
   ValorReceitas: {
     color: '#32CD32',
     fontSize: 23,
-    marginLeft: 8,
-    marginRight: 30,
+    marginLeft: 5,
   },
 
-  // ContainerDespesa: {
-
-  // },
+  GeralDespesas: {
+    flexDirection:'row',
+    justifyContent: 'center',
+  },
 
   Despesas: {
     color: '#fff',
     fontSize: 15,
-    marginLeft: 8,
+    marginLeft: 5,
   },
 
   ValorDespesas: {
     color: 'red',
     fontSize: 23,
-    marginLeft: 8,
+    marginLeft: 5,
   },
   
   Contas: {
     color: '#FECE00',
-    fontSize: 25,
+    fontSize: 26,
     fontWeight: 'bold',
     alignSelf: 'center',
-    marginTop: 15,
+    marginTop: 60,
+    marginBottom: -20,
   },
 
   ContainerContas: {
@@ -300,6 +284,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 55,
     borderRadius: 5,
-  }
+    //justifyContent: 'space-around'
+  },
+
+  Apagar: {
+    alignSelf: 'center',
+    marginLeft: 'auto',
+    marginRight: 15,
+  }, 
 
 });

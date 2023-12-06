@@ -115,12 +115,13 @@ export default function EditTransaction({ navigation, route}) {
                         testID="dateTimePicker"
                         value={date}
                         mode="date"
-                        display="default"
+                        display="spinner"
                         onChange={onChange}
                         placeholderText='Data'
                         placeholderTextColor= '#FECE00'
                         style={styles.dateTimePicker}
-                        />
+                        textColor='#FECE00'
+                    />
                     <SelectList
                         setSelected={(val) => setCategory(val)}
                         data={type === 'income' ? categoriesIncome : categoriesExpense} 
@@ -248,15 +249,14 @@ const styles = StyleSheet.create({
         marginTop: 25,
       },
   
-      dateTimePicker: {
+    dateTimePicker: {
         borderColor: '#FECE00',
         borderWidth: 1,
         borderRadius: 5,
         marginTop: 25,
         height: 47,
-        //width: 125,
+        width: 275,
         alignSelf: 'center', 
-        backgroundColor: '#252B3B',
       },
 
 });

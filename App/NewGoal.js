@@ -92,20 +92,22 @@ export default function NewGoal({ navigation, route }) {
               testID="dateTimePicker"
               value={startDate}
               mode="date"
-              display="default"
+              display="spinner"
               onChange={onChange}
               placeholderTextColor= '#FECE00'
               style={styles.dateTimePicker}
+              textColor='#FECE00'
             />
             <Text style={styles.title2}>Data de Término: </Text>
             <DateTimePicker
               testID="dateTimePicker"
               value={endDate}
               mode="date"
-              display="default"
+              display="spinner"
               onChange={onChange2}
               placeholderTextColor= '#FECE00'
               style={styles.dateTimePicker}
+              textColor='#FECE00'
             />
             <Text style={styles.title2}>Quantos R$ gostaria de economizar no período: </Text>
             <TextInput style={styles.input2}
@@ -242,8 +244,7 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       marginTop: 25,
       height: 47,
-      //width: 125,
+      width: 275,
       alignSelf: 'center', 
-      backgroundColor: '#252B3B',
     },
   });
