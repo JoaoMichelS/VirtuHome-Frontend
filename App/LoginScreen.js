@@ -57,9 +57,9 @@ function LoginScreen({ navigation }) {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
-      <TouchableOpacity style={styles.ForgotPassword} onPress={ForgotPassword}>
+      {/* <TouchableOpacity style={styles.ForgotPassword} onPress={ForgotPassword}>
         <Text style={styles.ForgotPassword}>Recuperar senha</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity style={styles.button} onPress={signIn}>
         <Text style={styles.buttonText}>LOG IN</Text>
       </TouchableOpacity>

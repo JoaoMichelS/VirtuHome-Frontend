@@ -81,12 +81,6 @@ export default function NewGoal({ navigation, route }) {
               onChangeText={(text) => setDescription(text)}
               value={description}
             />
-            <Text style={styles.title2}>Renda mensal: </Text>
-            <TextInput style={styles.input2}
-              keyboardType='numeric'
-              onChangeText={(text) => setMonthlyIncome(text)}
-              value={monthlyIncome}
-            />
             <Text style={styles.title2}>Data de Início: </Text>
             <DateTimePicker
               testID="dateTimePicker"
@@ -109,60 +103,11 @@ export default function NewGoal({ navigation, route }) {
               style={styles.dateTimePicker}
               textColor='#FECE00'
             />
-            <Text style={styles.title2}>Quantos R$ gostaria de economizar no período: </Text>
+            <Text style={styles.title2}>Meta: </Text>
             <TextInput style={styles.input2}
-              keyboardType='numeric'
+            keyboardType='numeric'
               onChangeText={(text) => setTargetValue(text)}
               value={targetValue}
-            />
-            <Text style={styles.title2}>Gasto em Moradia: </Text>
-            <TextInput style={styles.input2}
-              keyboardType='numeric'
-              placeholderTextColor={"#FECE00"}
-              onChangeText={(text) => setValorMoradia(text)}
-              value={valorMoradia}
-            />
-            <Text style={styles.title2}>Gasto em Alimentação: </Text>
-            <TextInput style={styles.input2}
-              keyboardType='numeric'
-              //placeholderTextColor={"#FECE00"}
-              onChangeText={(text) => setValorAlimentação(text)}
-              value={valorAlimentação}
-            />
-            <Text style={styles.title2}>Gasto em Transporte: </Text>
-            <TextInput style={styles.input2}
-              placeholderTextColor={"#FECE00"}
-              keyboardType='numeric'
-              onChangeText={(text) => setValorTransporte(text)}
-              value={valorTransporte}
-            />
-            <Text style={styles.title2}>Gasto em Saúde: </Text>
-            <TextInput style={styles.input2}
-              placeholderTextColor={"#FECE00"}
-              keyboardType='numeric'
-              onChangeText={(text) => setValorSaúde(text)}
-              value={valorSaúde}
-            />
-            <Text style={styles.title2}>Gasto em Educação: </Text>
-            <TextInput style={styles.input2}
-              placeholderTextColor={"#FECE00"}
-              keyboardType='numeric'
-              onChangeText={(text) => setValorEducação(text)}
-              value={valorEducação}
-            />
-            <Text style={styles.title2}>Gasto em Lazer: </Text>
-            <TextInput style={styles.input2}
-              placeholderTextColor={"#FECE00"}
-              keyboardType='numeric'
-              onChangeText={(text) => setValorLazer(text)}
-              value={valorLazer}
-            />
-            <Text style={styles.title2}>Gasto em Outros: </Text>
-            <TextInput style={styles.input2}
-              placeholderTextColor={"#FECE00"}
-              keyboardType='numeric'
-              onChangeText={(text) => setValorOutros(text)}
-              value={valorOutros}
             />
             <TouchableOpacity style={styles.Button} onPress={addGoal}>
               <Text style={styles.Add}>ADICIONAR</Text>

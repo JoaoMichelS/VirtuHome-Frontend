@@ -19,6 +19,10 @@ export default function Goals({ navigation, route}) {
     navigation.navigate('EditGoal', { goalId: id })
   };
 
+  const calculateProgress = (balance, targetValue) => {
+    return (balance / targetValue) * 100;
+  };
+
   useEffect( () => {
     const unsubscribe = navigation.addListener('focus', () => {
       async function getGoals() {
@@ -59,13 +63,24 @@ export default function Goals({ navigation, route}) {
             {userGoals?.map((goal, i) => {
               const formattedDate1 = formatDate(goal.startDate); // Chamando a função para formatar a data
               const formattedDate2 = formatDate(goal.endDate); // Chamando a função para formatar a data
+              const progress = calculateProgress(parseFloat(goal.balance), parseFloat(goal.targetValue));
                 return (
                 <TouchableOpacity key={i} style={styles.ContainerChamado} onPress={() => EditGoal(goal.id)}>
                     <Text style={styles.Departamento}>{goal.description}</Text>
-                    <Text style={styles.Assunto}>Renda Mensal: R${goal.monthlyIncome}</Text>
                     <Text style={styles.Assunto}>Meta: R${goal.targetValue}</Text>
+                    <Text style={styles.Assunto}>Saldo: R${goal.balance}</Text>
                     <Text style={styles.Data}>Início: {formattedDate1}</Text> 
-                    <Text style={styles.Data}>Fim: {formattedDate2}</Text> 
+                    <Text style={styles.Data}>Fim: {formattedDate2}</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ color: 'black' }}>Progresso:</Text>
+                    <View style={{ 
+                      backgroundColor: '#FECE00', 
+                      height: 10, 
+                      width: `${progress}%`, 
+                      marginLeft: 5,
+                      maxWidth: '78%', // Definindo uma largura máxima para a barra de progresso
+                    }} />
+                  </View>
                 </TouchableOpacity>    
                 );
               })}
@@ -157,7 +172,7 @@ Data: {
     fontSize: 12,
     textAlign: 'right',
     marginRight: '5%',
-    bottom : 90,
+    bottom : 60,
     padding: -50,
 },
 

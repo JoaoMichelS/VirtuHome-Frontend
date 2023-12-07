@@ -94,17 +94,17 @@ useEffect(() => {
   }
 }, [navigation, route.params?.transactionCreated]);
 
- const handleDelete = async () => {
-  // try {
-  //   const response = await axios.delete(`http://${API_IP}:3000/transaction/delete/${route.params.transactionId}`);
-  //   console.log(response);
-  //   navigation.navigate('Main', { userId: route.params.userId, transactionCreated: true });
-  // } catch (error) {
-  //   console.error(error);
-  //   alert("Conta excluída!");
-  //   alert('Erro ao fazer a requisição DELETE: ' + error.message);
-  // }
- };
+const handleDelete = async (accountId) => {
+  try {
+    const response = await axios.delete(`http://${API_IP}:3000/account/delete/${accountId}/${route.params.userId}`);
+    console.log("Conta deletada!");
+    alert("Conta deletada!")
+    navigation.navigate('Transactions', { userId: route.params.userId, transactionCreated: true });
+  } catch (error) {
+    console.error(error);
+    alert('Erro ao excluir conta: ' + error.message);
+  }
+};
 
  const [visible, setVisible] = useState(true);
 
@@ -139,7 +139,7 @@ useEffect(() => {
                 <Text style={styles.Departamento}>{account.name}</Text>
                 <Text style={styles.Assunto}>R${account.balance}</Text>
                 <View style={styles.Apagar}>
-                  <TouchableOpacity onPress={handleDelete}>
+                  <TouchableOpacity onPress={() => handleDelete(account.accountId)}>
                     <Ionicons name="trash-outline" size={26}/>
                   </TouchableOpacity>
                 </View>

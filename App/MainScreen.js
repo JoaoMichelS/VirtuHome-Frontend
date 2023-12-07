@@ -55,7 +55,7 @@ function MainScreen ({ navigation, route }) {
                     return <Ionicons name="checkmark-circle-outline" size={size} color={'#FECE00'}/>
                 }
             }}/>
-            <Tab.Screen name="Historic" component={Historic} initialParams={{ userId: route.params.userId }}
+            {/* <Tab.Screen name="Historic" component={Historic} initialParams={{ userId: route.params.userId }}
             options={{
                 headerShown: false,
                 tabBarIcon: ({ color, size, focused }) => {
@@ -64,7 +64,7 @@ function MainScreen ({ navigation, route }) {
                     }
                     return <Ionicons name="bar-chart-outline" size={size} color={'#FECE00'}/>
                 }
-            }}/>
+            }}/> */}
         </Tab.Navigator>
     );
 }
