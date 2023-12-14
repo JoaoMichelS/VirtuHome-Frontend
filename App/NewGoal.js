@@ -22,6 +22,7 @@ export default function NewGoal({ navigation, route }) {
   const [description, setDescription] = useState('');
   const [show, setShow] = useState(false);
   const [targetValue, setTargetValue] = useState('');
+  const [balance, setBalance] = useState();
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -54,6 +55,7 @@ export default function NewGoal({ navigation, route }) {
         userId: route.params.userId,
         description: description,
         monthlyIncome: monthlyIncome,
+        balance: balance,
         targetValue: targetValue,
         status: "active", //'active' | 'completed' | 'abandoned'
         startDate: startDate,
@@ -108,6 +110,12 @@ export default function NewGoal({ navigation, route }) {
             keyboardType='numeric'
               onChangeText={(text) => setTargetValue(text)}
               value={targetValue}
+            />
+            <Text style={styles.title2}>Saldo atual: </Text>
+            <TextInput style={styles.input2}
+            keyboardType='numeric'
+              onChangeText={(text) => setBalance(text)}
+              value={balance}
             />
             <TouchableOpacity style={styles.Button} onPress={addGoal}>
               <Text style={styles.Add}>ADICIONAR</Text>
