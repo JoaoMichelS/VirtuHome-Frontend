@@ -127,7 +127,7 @@ Se for o caso, liste tarefas/funcionalidades que ainda precisam ser implementada
 
 Liste o time responsável pelo desenvolvimento do projeto
 
-| [<img src="https://avatars2.githubusercontent.com/u/46378210?s=400&u=071f7791bb03f8e102d835bdb9c2f0d3d24e8a34&v=4" width=115><br><sub>Diana Regina</sub>](https://github.com/Diana-ops) |  [<img src="https://avatars2.githubusercontent.com/u/46378210?s=400&u=071f7791bb03f8e102d835bdb9c2f0d3d24e8a34&v=4" width=115><br><sub>Diana Regina</sub>](https://github.com/Diana-ops) |  [<img src="https://avatars2.githubusercontent.com/u/46378210?s=400&u=071f7791bb03f8e102d835bdb9c2f0d3d24e8a34&v=4" width=115><br><sub>Diana Regina</sub>](https://github.com/Diana-ops) |
+| [<img src="https://avatars.githubusercontent.com/u/77464914?s=400&u=4c5944b937605ae966d63a27a054c901aec11786&v=4" width=115><br><sub>João Vitor</sub>](https://github.com/JoaoMichelS) |  [<img src="https://avatars.githubusercontent.com/u/124169502?v=4" width=115><br><sub>Andressa Braga</sub>](https://github.com/andressabragavr) | 
 | :---: | :---: | :---: 
 
 ## Licença 
