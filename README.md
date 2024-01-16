@@ -1,5 +1,3 @@
-
-
 <h1>VirtuHome - Aplicação mobile para controle financeiro</h1> 
 
 <p align="center">
@@ -98,7 +96,7 @@ Se quiser, coloque uma amostra do banco de dados
 
 ## Iniciando/Configurando banco de dados
 
-Se for necessário configurar algo antes de iniciar o banco de dados insira os comandos a serem executados 
+Está sendo utilizado o Firebase neste projeto, sendo necessário adicionar sua key do banco de dados, atualmente está sendo apontada para: 
 
 ## Linguagens, dependencias e libs utilizadas :books:
 
@@ -124,8 +122,6 @@ Se for o caso, liste tarefas/funcionalidades que ainda precisam ser implementada
 :memo: Tarefa 3 
 
 ## Desenvolvedores/Contribuintes :octocat:
-
-Liste o time responsável pelo desenvolvimento do projeto
 
 | [<img src="https://avatars.githubusercontent.com/u/77464914?s=400&u=4c5944b937605ae966d63a27a054c901aec11786&v=4" width=115><br><sub>João Vitor</sub>](https://github.com/JoaoMichelS) |  [<img src="https://avatars.githubusercontent.com/u/124169502?v=4" width=115><br><sub>Andressa Braga</sub>](https://github.com/andressabragavr) |   [<img src="" width=115><br><sub></sub>]() |
 | :---: | :---: | :---:
