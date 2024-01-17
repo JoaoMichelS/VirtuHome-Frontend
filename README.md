@@ -131,4 +131,4 @@ Se for o caso, liste tarefas/funcionalidades que ainda precisam ser implementada
 
 The [MIT License]() (MIT)
 
-Copyright :copyright: Ano - Titulo do Projeto
+Copyright :copyright: 2023 - VirtuHome
